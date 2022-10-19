@@ -6,7 +6,7 @@
 #    By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:41:04 by tliangso          #+#    #+#              #
-#    Updated: 2022/10/19 18:54:51 by tliangso         ###   ########.fr        #
+#    Updated: 2022/10/19 19:46:09 by tliangso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,24 +73,24 @@ WHITE	= \033[1;37m
 
 all: ${NAME}
 
-$(OBJ_SRC)%.o: $(DIRSRC)%.c
-	@mkdir -p objs
-	@${CC} ${CFLAGS} ${LIBFLAGS} -o $@ $<
-	@echo "$(BLUE)$(CC) $(WHITE)$(notdir $@)$(NOC)"
+# $(OBJS): %.o: $(DIRSRC)%.c
+# 	@mkdir -p objs
+# 	@${CC} ${CFLAGS} ${LIBFLAGS} -o $@ $<
+# 	@echo "$(BLUE)$(CC) $(WHITE)$(notdir $@)$(NOC)"
 
 bonus: ${BONUS_NAME}
 
 test_p:
 	echo ${SRCS}
 
-# %.o: %.c
-# 	@mkdir -p objs
-# 	@${CC} ${CFLAGS} ${LIBFLAGS} -c $< -o ${<:.c=.o}
-# 	@echo "$(BLUE)${CC} $(WHITE)$(notdir $@)$(NOC)"
+%.o: %.c
+	@mkdir -p objs
+	@${CC} ${CFLAGS} ${LIBFLAGS} -c $< -o ${<:.c=.o}
+	@echo "$(BLUE)${CC} $(WHITE)$(notdir $@)$(NOC)"
 
 ${NAME}:	${OBJS}
 
-	@${CC} ${OBJS} -o ${NAME} ${CFLAGS} ${LIBFLAGS}
+	@${CC} ${OBJS} ${LIBFLAGS} ${CFLAGS} -o ${NAME}
 	@echo "$(GREEN)$@$(NOC)"
 
 clean:
