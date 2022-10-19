@@ -6,7 +6,7 @@
 #    By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:41:04 by tliangso          #+#    #+#              #
-#    Updated: 2022/10/19 11:13:02 by tliangso         ###   ########.fr        #
+#    Updated: 2022/10/19 13:08:32 by tliangso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ LIBFT_OBJS	= $(LIBFT_SRCS:.c=.o)
 CC		= gcc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror -g
+LIBFLAGS = -L/usr/lib -I/usr/include -I${HEAD} -lreadline
 
 ### COLORS ###
 NOC		= \033[0m
@@ -75,8 +76,8 @@ WHITE	= \033[1;37m
 ### RULES ###
 
 .c.o:
-	@${CC} ${CFLAGS} -c -I ${HEAD} $< -o ${<:.c=.o}
-	@echo "$(BLUE)clang $(WHITE)$(notdir $@)$(NOC)"
+	@${CC} ${CFLAGS} -c ${LIBFLAGS} $< -o ${<:.c=.o}
+	@echo "$(BLUE)${CC} $(WHITE)$(notdir $@)$(NOC)"
 
 all: ${NAME}
 

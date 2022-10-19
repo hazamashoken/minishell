@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:22 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/19 12:45:09 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:56:56 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,12 @@ void	sig_handler(int signum)
 	printf("sig_id: %d\n", signum);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	main(void)
 {
-	(void)argc;
-	(void)argv;
-	(void)envp;
+
 
 	printf("pid: %d\n", getpid());
 	signal(SIGINT, sig_handler);
-	while (1)
-	{
-		usleep(100);
-	}
+	printf("%s\n", readline("minishell > "));
 	return (EXIT_FAILURE);
 }
