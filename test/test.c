@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 10:49:22 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/19 17:48:53 by tliangso         ###   ########.fr       */
+/*   Created: 2022/10/19 18:08:45 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/19 18:15:26 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-// Use to handle ctrl+z, ctrl+c, ctrl+d
-// signal() will redirect the SIG received
-void	sig_handler(int signum)
-{
-	printf("sig_id: %d\n", signum);
-}
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 int	main(void)
 {
-	printf("pid: %d\n", getpid());
-	signal(SIGINT, sig_handler);
-	printf("%s\n", readline("minishell > "));
-	return (EXIT_FAILURE);
+	printf("%s\n", readline("\033[1;33mminishell :\033[0m "));
+	return (0);
 }

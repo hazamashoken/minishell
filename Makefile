@@ -6,7 +6,7 @@
 #    By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:41:04 by tliangso          #+#    #+#              #
-#    Updated: 2022/10/19 13:08:32 by tliangso         ###   ########.fr        #
+#    Updated: 2022/10/19 18:54:51 by tliangso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LEXER_SRC		= lexer/
 PARSER_SRC		= parser/
 EXPANDER_SRC	= expander/
 LIBFT_SRC		= libft/
-OBJ_SRC			= objs/
+OBJ_DIR			= objs/
 
 ### TESTER GIT URL ###
 TESTER1		=
@@ -44,26 +44,22 @@ EXECUTOR = executor.c
 LIBFT	= libft.c
 
 ### PATH ###
-SRCS		= ${addprefix ${DIRSRC}, ${SRC}}
-LEXER_SRCS	= ${addprefix ${LEXER_SRC}, ${LEXER}}
-PARSER_SRCS	= ${addprefix ${PARSER_SRC}, ${PARSER}}
-EXPANDER_SRCS	= ${addprefix ${EXPANDER_SRC}, ${EXPANDER}}
-EXECUTOR_SRCS	= ${addprefix ${EXECUTOR_SRC}, ${EXECUTOR}}
-LIBFT_SRCS	= ${addprefix ${LIBFT_SRC}, ${LIBFT}}
+SRCS		= ${addprefix ${DIRSRC}, ${SRC}} \
+	${addprefix ${LEXER_SRC}, ${LEXER}} \
+	${addprefix ${PARSER_SRC}, ${PARSER}} \
+	${addprefix ${EXPANDER_SRC}, ${EXPANDER}} \
+	${addprefix ${EXECUTOR_SRC}, ${EXECUTOR}} \
+	${addprefix ${LIBFT_SRC}, ${LIBFT}}
 
 ### OBJECT FILE ###
 OBJS		= $(SRCS:.c=.o)
-LEXER_OBJS	= $(LEXER_SRCS:.c=.o)
-PARSER_OBJS	= $(PARSER_SRCS:.c=.o)
-EXPANDER_OBJS	= $(EXPANDER_SRCS:.c=.o)
-EXECUTOR_OBJS	= $(EXECUTOR_SRCS:.c=.o)
-LIBFT_OBJS	= $(LIBFT_SRCS:.c=.o)
+
 
 ### COMPILATION ###
 CC		= gcc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror -g
-LIBFLAGS = -L/usr/lib -I/usr/include -I${HEAD} -lreadline
+LIBFLAGS = -I${HEAD} -lreadline
 
 ### COLORS ###
 NOC		= \033[0m
@@ -75,34 +71,31 @@ WHITE	= \033[1;37m
 
 ### RULES ###
 
-.c.o:
-	@${CC} ${CFLAGS} -c ${LIBFLAGS} $< -o ${<:.c=.o}
-	@echo "$(BLUE)${CC} $(WHITE)$(notdir $@)$(NOC)"
-
 all: ${NAME}
 
-# $(OBJ_SRC)%.o: $(DIRSRC)%.c $(HEAD)$(NAME).h
-# 	@mkdir -p objs
-# 	@${CC} ${CFLAGS} -I${HEAD} -c -o $@ $<
-# 	@echo "$(BLUE)$(CC) $(WHITE)$(notdir $@)$(NOC)"
+$(OBJ_SRC)%.o: $(DIRSRC)%.c
+	@mkdir -p objs
+	@${CC} ${CFLAGS} ${LIBFLAGS} -o $@ $<
+	@echo "$(BLUE)$(CC) $(WHITE)$(notdir $@)$(NOC)"
 
 bonus: ${BONUS_NAME}
 
-${NAME}:	${OBJS} ${LIBFT_OBJS} ${PARSER_OBJS} ${LEXER_OBJS} ${EXPANDER_OBJS} ${EXECUTOR_OBJS}
+test_p:
+	echo ${SRCS}
 
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBFT_OBJS} ${PARSER_OBJS} ${LEXER_OBJS} ${EXPANDER_OBJS} ${EXECUTOR_OBJS}
+# %.o: %.c
+# 	@mkdir -p objs
+# 	@${CC} ${CFLAGS} ${LIBFLAGS} -c $< -o ${<:.c=.o}
+# 	@echo "$(BLUE)${CC} $(WHITE)$(notdir $@)$(NOC)"
+
+${NAME}:	${OBJS}
+
+	@${CC} ${OBJS} -o ${NAME} ${CFLAGS} ${LIBFLAGS}
 	@echo "$(GREEN)$@$(NOC)"
-
-${BONUS_NAME}:		${BONUS_OBJS} ${LIBFT_OBJS} ${SHARE_OBJS}
-	@${CC} ${CFLAGS} -o ${BONUS_NAME} ${BONUS_OBJS} ${LIBFT_OBJS} ${SHARE_OBJS}
-	@echo "$(GREEN)${BONUS_NAME}$(NOC)"
-
-extra:	${OBJS} ${BONUS_OBJS} ${EXRTA_OBJS} ${LIBFT_OBJS}
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${BONUS_OBJS} ${EXRTA_OBJS} ${LIBFT_OBJS}
 
 clean:
 	@echo "$(RED)clean$(NOC)"
-	@${RM} ${OBJS} ${BONUS_OBJS} ${EXRTA_OBJS} ${LIBFT_OBJS} ${PARSER_OBJS} ${LEXER_OBJS} ${EXPANDER_OBJS} ${EXECUTOR_OBJS}
+	@${RM} ${OBJS}
 
 fclean: clean
 	@echo "$(RED)fclean$(NOC)"
