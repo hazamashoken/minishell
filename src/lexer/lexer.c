@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 10:49:22 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/19 17:48:53 by tliangso         ###   ########.fr       */
+/*   Created: 2022/10/19 11:01:05 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/21 23:42:46 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Use to handle ctrl+z, ctrl+c, ctrl+d
-// signal() will redirect the SIG received
-void	sig_handler(int signum)
+int	lexer(const char *input)
 {
-	printf("sig_id: %d\n", signum);
-}
-
-int	main(void)
-{
-	printf("pid: %d\n", getpid());
-	signal(SIGINT, sig_handler);
-	printf("%s\n", readline("minishell > "));
-	return (EXIT_FAILURE);
+	(void)input;
+	return (1);
 }
