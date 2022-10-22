@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:01:05 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/22 17:13:17 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/22 18:17:59 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	alloc_size(char *line, int pos)
 	size = 0;
 	i = 0;
 	c = ' ';
-	while (*(line + pos) && (*(line + pos + i) != ' ' || c != ' '))
+	while (line[pos + i] != 0 && (*(line + pos + i) != ' ' || c != ' '))
 	{
 		if (c == ' ' && (*(line + pos + i) == '\''
 				|| *(line + pos + i) == '\"'))
@@ -84,17 +84,33 @@ void	skip_whitespace(char *line, int *pos)
 		(*pos)++;
 }
 
+int	ignore_sep(char *line, int i)
+{
+	if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == ';')
+		return (1);
+	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '|')
+		return (1);
+	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '>')
+		return (1);
+	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '>'
+		&& line[i + 2] && line[i + 2] == '>')
+		return (1);
+	return (0);
+}
+
 //Put token into linked link in env
 int	lexer_spliter(char *line, t_env *env)
 {
 	int		pos;
 	char	*part;
 	t_token	*token;
+	//int		sep;
 
 	pos = 0 ;
 	skip_whitespace(line, &pos);
 	while (*(line + pos))
 	{
+		//sep = ignore_sep(line, pos);
 		part = get_token(line, &pos);
 		if (part == NULL)
 			return (1);
@@ -110,6 +126,7 @@ int	lexer_spliter(char *line, t_env *env)
 
 int	lexer(char *line, t_env *env)
 {
+	printf("line: %s|\n", line);
 	if (lexer_spliter(line, env) == 1)
 		return (1);
 	return (0);
