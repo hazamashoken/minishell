@@ -6,18 +6,20 @@
 #    By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:41:04 by tliangso          #+#    #+#              #
-#    Updated: 2022/10/22 00:31:45 by tliangso         ###   ########.fr        #
+#    Updated: 2022/10/22 13:50:05 by tliangso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### EXECUTABLE ###
 NAME		= minishell
-BONUS_NAME	=
+LEXER_NAME	= lexer
 
 ### DIR ###
-HEAD			= -Iinclude
-DIRSRC			= ./src
+HEAD			= -I./includes
+DIRSRC			= ./
 BUILD_DIR		= ./build
+LEXER_DIR		= ./src/lexer
+LIBFT_DIR		= ./src/libft
 
 ### TESTER GIT URL ###
 TESTER1		=
@@ -27,9 +29,11 @@ TESTER4		=
 
 ### PATH ###
 SRCS		= $(shell find $(DIRSRC) -name '*.c')
+LEXER_SRCS		= $(shell find $(LEXER_DIR) -name '*.c') $(shell find $(LIBFT_DIR) -name '*.c')
 
 ### OBJECT FILE ###
 OBJS		= $(SRCS:%=$(BUILD_DIR)/%.o)
+LEXER_OBJS		= $(LEXER_SRCS:%=$(BUILD_DIR)/%.o)
 
 ### INCLUDE ###
 LIB 	= $(HEAD) -lreadline
@@ -48,6 +52,8 @@ BLUE	= \033[1;34m
 WHITE	= \033[1;37m
 
 ### RULES ###
+lexer: $(BUILD_DIR)/$(LEXER_NAME)
+
 all: $(BUILD_DIR)/$(NAME)
 
 $(BUILD_DIR)/$(NAME): $(OBJS)
@@ -58,6 +64,10 @@ $(BUILD_DIR)/%.c.o: %.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(LIB) -c -o $@ $<
 	@echo "$(GREEN)gcc $@$(NOC)"
+
+$(BUILD_DIR)/$(LEXER_NAME): $(LEXER_OBJS)
+	@${CC} ${CFLAGS} $(LEXER_OBJS) $(LIB) -o $@
+	@echo "$(GREEN)$@$(NOC)"
 
 test:
 	@echo "$(LIB)\n"
@@ -110,4 +120,4 @@ help:
 tar:
 	tar -zcvf ${NAME}.tar.gz *
 
-.PHONY:		all	clean	fclean	re bonus norm gitpush tester help tar test
+.PHONY:		all	clean	fclean	re bonus norm gitpush tester help tar test lexer
