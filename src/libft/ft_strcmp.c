@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 10:49:22 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/22 21:51:00 by tliangso         ###   ########.fr       */
+/*   Created: 2022/10/22 19:42:43 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/22 20:56:26 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../../cadet/minishell/includes/minishell.h"
 
-// Use to handle ctrl+z, ctrl+c, ctrl+d
-// signal() will redirect the SIG received
-void	sig_handler(int signum)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	printf("sig_id: %d\n", signum);
-}
+	size_t	i;
 
-int	main(void)
-{
-	//const char	*input;
-
-	printf("pid: %d\n", getpid());
-	//signal(SIGINT, sig_handler);
-	// input = readline("\033[1;33mminishell >\033[0m ");
-	// if (lexer(input))
-	// 	error_exit(LEXER);
-	// return (EXIT_FAILURE);
+	i = 0;
+	while ((*(s1 + i) || *(s2 + i)) && i < n)
+	{
+		if (*(s1 + i) != *(s2 + i))
+			return (*(unsigned char *)(s1 + i) - *(unsigned char *)(s2 + i));
+		i++;
+	}
 	return (0);
 }

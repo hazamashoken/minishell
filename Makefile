@@ -6,7 +6,7 @@
 #    By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:41:04 by tliangso          #+#    #+#              #
-#    Updated: 2022/10/22 13:50:05 by tliangso         ###   ########.fr        #
+#    Updated: 2022/10/22 19:35:35 by tliangso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,10 @@ WHITE	= \033[1;37m
 
 ### RULES ###
 lexer: $(BUILD_DIR)/$(LEXER_NAME)
+	mv $(BUILD_DIR)/$(LEXER_NAME) .
 
 all: $(BUILD_DIR)/$(NAME)
+	mv $(BUILD_DIR)/$(NAME) .
 
 $(BUILD_DIR)/$(NAME): $(OBJS)
 	@${CC} ${CFLAGS} $(OBJS) $(LIB) -o $@
@@ -79,11 +81,18 @@ bonus: ${BONUS_NAME}
 
 clean:
 	@echo "$(RED)clean$(NOC)"
-	@${RM} $(BUILD_DIR)
+	@if [ -d $(BUILD_DIR) ]; then\
+		${RM} $(BUILD_DIR);\
+	fi
 
 fclean: clean
 	@echo "$(RED)fclean$(NOC)"
-	@${RM} ${NAME} ${BONUS_NAME}
+	@if [ -f ${NAME} ]; then\
+		${RM} ${NAME};\
+	fi
+	@if [ -f ${LEXER_NAME} ]; then\
+		${RM} ${LEXER_NAME};\
+	fi
 
 re: fclean	all
 

@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/22 16:12:14 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/22 21:43:44 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 
 # include "minishell_define.h"
 
-typedef int	t_fd;
-
 typedef struct s_token
 {
 	char			*token;
 	int				type;
+	int				piority;
 	struct s_token	*next;
+	struct s_token	*prev;
 }	t_token;
 
 typedef struct s_env
@@ -51,5 +51,6 @@ int		ft_tokenclear(t_token **lst);
 int		ft_tokensize(t_token *lst);
 void	ft_tokenadd_front(t_token **lst, t_token *new);
 int		ft_tokeninsert(t_token *head, t_token *new, int index);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif
