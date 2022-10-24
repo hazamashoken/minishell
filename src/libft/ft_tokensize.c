@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 15:32:12 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/22 15:33:43 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/23 10:41:12 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_tokensize(t_token *lst)
 	size = 0;
 	while (node != NULL)
 	{
+		//printf("p: %p\n", node);
 		node = node->next;
 		size++;
 	}

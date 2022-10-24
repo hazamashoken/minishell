@@ -6,19 +6,21 @@
 #    By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:41:04 by tliangso          #+#    #+#              #
-#    Updated: 2022/10/22 19:35:35 by tliangso         ###   ########.fr        #
+#    Updated: 2022/10/24 15:08:44 by tliangso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### EXECUTABLE ###
 NAME		= minishell
-LEXER_NAME	= lexer
+LEXER_NAME	= lexer.out
+PROTO_NAME	= prototype.out
 
 ### DIR ###
 HEAD			= -I./includes
-DIRSRC			= ./
+DIRSRC			= ./src
 BUILD_DIR		= ./build
 LEXER_DIR		= ./src/lexer
+PROTO_DIR		= ./prototype
 LIBFT_DIR		= ./src/libft
 
 ### TESTER GIT URL ###
@@ -29,10 +31,12 @@ TESTER4		=
 
 ### PATH ###
 SRCS		= $(shell find $(DIRSRC) -name '*.c')
+PROTO_SRCS	= $(shell find $(PROTO_DIR) -name '*.c') $(shell find $(LIBFT_DIR) -name '*.c')
 LEXER_SRCS		= $(shell find $(LEXER_DIR) -name '*.c') $(shell find $(LIBFT_DIR) -name '*.c')
 
 ### OBJECT FILE ###
 OBJS		= $(SRCS:%=$(BUILD_DIR)/%.o)
+PROTO_OBJS		= $(PROTO_SRCS:%=$(BUILD_DIR)/%.o)
 LEXER_OBJS		= $(LEXER_SRCS:%=$(BUILD_DIR)/%.o)
 
 ### INCLUDE ###
@@ -52,11 +56,16 @@ BLUE	= \033[1;34m
 WHITE	= \033[1;37m
 
 ### RULES ###
-lexer: $(BUILD_DIR)/$(LEXER_NAME)
-	mv $(BUILD_DIR)/$(LEXER_NAME) .
+
+$(BUILD_DIR)/$(LEXER_NAME): $(LEXER_OBJS)
+	@${CC} ${CFLAGS} $(LEXER_OBJS) $(LIB) -o $@
+	@echo "$(GREEN)$@$(NOC)"
 
 all: $(BUILD_DIR)/$(NAME)
-	mv $(BUILD_DIR)/$(NAME) .
+
+$(BUILD_DIR)/$(PROTO_NAME): $(PROTO_OBJS)
+	@${CC} ${CFLAGS} $(PROTO_OBJS) $(LIB) -o $@
+	@echo "$(GREEN)$@$(NOC)"
 
 $(BUILD_DIR)/$(NAME): $(OBJS)
 	@${CC} ${CFLAGS} $(OBJS) $(LIB) -o $@
@@ -67,20 +76,19 @@ $(BUILD_DIR)/%.c.o: %.c
 	@$(CC) $(CFLAGS) $(LIB) -c -o $@ $<
 	@echo "$(GREEN)gcc $@$(NOC)"
 
-$(BUILD_DIR)/$(LEXER_NAME): $(LEXER_OBJS)
-	@${CC} ${CFLAGS} $(LEXER_OBJS) $(LIB) -o $@
-	@echo "$(GREEN)$@$(NOC)"
-
 test:
 	@echo "$(LIB)\n"
-	@echo "$(SRCS)\n"
-	@echo "$(BUILD_DIR)/$(NAME)\n"
-	@echo "$(OBJS)\n"
+	@echo "$(LEXER_SRCS)\n"
+	@echo "$(BUILD_DIR)/$(LEXER_NAME)\n"
+	@echo "$(LEXER_OBJS)\n"
 
 bonus: ${BONUS_NAME}
 
 clean:
 	@echo "$(RED)clean$(NOC)"
+	@if [ -f $(BUILD_DIR)/$(LEXER_NAME) ]; then\
+		mv $(BUILD_DIR)/$(LEXER_NAME) .;\
+	fi
 	@if [ -d $(BUILD_DIR) ]; then\
 		${RM} $(BUILD_DIR);\
 	fi

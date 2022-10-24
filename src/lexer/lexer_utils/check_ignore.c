@@ -1,33 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   check_ignore.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 10:49:22 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 21:20:22 by tliangso         ###   ########.fr       */
+/*   Created: 2022/10/24 14:18:44 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/24 16:57:25 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../../../cadet/minishell/includes/minishell.h"
 
-// Use to handle ctrl+z, ctrl+c, ctrl+d
-// signal() will redirect the SIG received
-void	sig_handler(int signum)
+int	is_special_char(char c)
 {
-	printf("sig_id: %d\n", signum);
+	return (
+		c == '>' || c == '<' || c == '|' || c == '&'
+	);
 }
 
-int	main(void)
+int	has_special_char(char *str)
 {
-	const char	*input;
+	int	i;
 
-	printf("pid: %d\n", getpid());
-	//signal(SIGINT, sig_handler);
-	input = readline("\033[1;33mminishell >\033[0m ");
-	if (lexer(input))
-	 	error_exit(LEXER);
-	// return (EXIT_FAILURE);
+	i = -1;
+	while (*(str + ++i))
+		if (is_special_char(*(str + i)))
+			return (1);
 	return (0);
+}
+
+int	find_special(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (*(str + ++i))
+	{
+		if (is_special_char(*(str + i)))
+			return (i);
+	}
+	return (i);
 }

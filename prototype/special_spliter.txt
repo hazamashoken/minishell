@@ -1,0 +1,186 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   special_spliter.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/23 21:20:52 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/24 14:30:33 by tliangso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../cadet/minishell/includes/minishell.h"
+
+void	check_type(t_token *token, int sep)
+{
+	if (ft_strncmp(token->token, "", 1) == 0)
+		token->type = EMPTY;
+	else if (ft_strncmp(token->token, ">>", 2) == 0 && !sep)
+		token->type = APPEND;
+	else if (ft_strncmp(token->token, ">", 1) == 0 && !sep)
+		token->type = TRUNC;
+	else if (ft_strncmp(token->token, "|", 1) == 0 && !sep)
+		token->type = PIPE;
+	else if (ft_strncmp(token->token, ";", 1) == 0 && !sep)
+		token->type = END;
+	else if (token->prev == NULL || token->prev->type >= TRUNC)
+		token->type = CMD;
+	else
+		token->type = ARG;
+}
+
+int	ignore_sep(char *str, int i)
+{
+	if (str[i] && str[i] == '\\' && str[i + 1] && str[i + 1] == ';')
+		return (1);
+	else if (str[i] && str[i] == '\\' && str[i + 1] && str[i + 1] == '|')
+		return (1);
+	else if (str[i] && str[i] == '\\' && str[i + 1] && str[i + 1] == '>')
+		return (1);
+	else if (str[i] && str[i] == '\\' && str[i + 1] && str[i + 1] == '<')
+		return (1);
+	return (0);
+}
+
+void	check_ignore(char *str, int *sep)
+{
+	int	i;
+
+	i = 0;
+	while (*(str + i))
+	{
+		if (ignore_sep(str, i))
+		{
+			*sep = 1;
+			return ;
+		}
+		i++;
+	}
+	*sep = 0;
+}
+
+int	is_special_char(char c)
+{
+	return (
+		c == '>' || c == ';' || c == '<' || c == '|'
+	);
+}
+
+int	has_special_char(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (*(str + ++i))
+		if (is_special_char(*(str + i)))
+			return (1);
+	return (0);
+}
+
+int	find_special(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (*(str + ++i))
+	{
+		if (is_special_char(*(str + i)))
+			return (i);
+	}
+	return (i);
+}
+
+int	split_special(t_env *env, char *str, int str_index, int *list_index)
+{
+	if (str_index == 0)
+	{
+		ft_tokeninsert(&env->token,
+			ft_tokennew(ft_strdup(str + 1), EMPTY), *(list_index));
+		ft_tokeninsert(&env->token,
+			ft_tokennew(ft_strndup(str, 1), EMPTY), *(list_index));
+		ft_tokenremove(env->token, ++*(list_index) + 1);
+		return (1);
+	}
+	else
+	{
+		ft_tokeninsert(&env->token,
+			ft_tokennew(ft_strdup(str + str_index), EMPTY), *(list_index));
+		ft_tokeninsert(&env->token,
+			ft_tokennew(ft_strndup(str, str_index), EMPTY), *(list_index));
+		ft_tokenremove(env->token, ++*(list_index) + 1);
+		ft_tokenprint(env->token, -1, C_GREEN);
+		return (1);
+	}
+}
+
+
+
+int	check_quote(t_env *env, t_token **token, int *list_idx)
+{
+	char	c;
+	int		i;
+	int		sep;
+	int		str_idx;
+
+	c = ' ';
+	i = -1;
+	str_idx = 0;
+	while (*((*token)->token + ++i))
+	{
+		if (c == ' ' && (*((*token)->token + i) == '\''
+				|| *((*token)->token + i) == '\"'))
+			c = *((*token)->token + i);
+		else if (c != ' ' && *((*token)->token + i) == c)
+			c = ' ';
+		else if (c == ' ' && is_special_char(*((*token)->token + i)))
+		{
+			check_ignore((*token)->token, &sep);
+			str_idx = find_special((*token)->token);
+			if (sep == 0 && has_special_char((*token)->token)
+				&& ft_strlen((*token)->token) > 1)
+				return (split_special(env, (*token)->token, str_idx, list_idx));
+		}
+	}
+	return (0);
+}
+
+int	pre_sanitise(t_env *env)
+{
+	t_token	*tmp;
+	int		list_index;
+	int		back;
+
+	list_index = -1;
+	tmp = env->token;
+	env->cur_token = tmp;
+	while (tmp && ++list_index >= 0)
+	{
+		back = check_quote(env, &tmp, &list_index);
+		if (back == -1)
+			return (1);
+		else if (back)
+		{
+			tmp = env->token;
+			list_index = -1;
+		}
+		else
+			tmp = tmp->next;
+		env->cur_token = tmp;
+	}
+	return (0);
+}
+
+int	main(void)
+{
+	t_env	env;
+
+	env.token = ft_tokennew(ft_strdup("hello"), EMPTY);
+	ft_tokenadd_back(&env.token, ft_tokennew(ft_strdup("split\\|this"), EMPTY));
+	ft_tokenadd_back(&env.token, ft_tokennew(ft_strdup("hello world"), EMPTY));
+	ft_tokenadd_back(&env.token, ft_tokennew(ft_strdup("minishell"), EMPTY));
+	pre_sanitise(&env);
+	printf("\n=============\n");
+	ft_tokenprint(env.token, -1, C_WHITE);
+	return (0);
+}

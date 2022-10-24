@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 18:08:45 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/19 18:15:26 by tliangso         ###   ########.fr       */
+/*   Created: 2022/10/23 10:22:21 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/23 23:10:47 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include	"minishell.h"
 
-int	main(void)
+char	*ft_strdup(char *s)
 {
-	printf("%s\n", readline("\033[1;33mminishell :\033[0m "));
-	return (0);
+	char	*str;
+	size_t	i;
+
+	i = 0;
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (str == NULL)
+		return (NULL);
+	while (*(s + i) != '\0')
+	{
+		*(str + i) = *(s + i);
+		i++;
+	}
+	*(str + i) = '\0';
+	return (str);
 }

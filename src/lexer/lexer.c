@@ -5,149 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 11:01:05 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/22 21:42:24 by tliangso         ###   ########.fr       */
+/*   Created: 2022/10/24 21:17:32 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/24 21:20:01 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../cadet/minishell/includes/minishell.h"
 
-/*
-@brief		check for ' " \ and return the token size need to be malloc"
-@return		size_t 	size to be malloc
-*/
-size_t	alloc_size(char *line, int pos)
+int	error_exit(t_env *env, char *input)
 {
-	size_t	size;
-	int		i;
-	char	c;
-
-	size = 0;
-	i = 0;
-	c = ' ';
-	while (line[pos + i] != 0 && (*(line + pos + i) != ' ' || c != ' '))
-	{
-		if (c == ' ' && (*(line + pos + i) == '\''
-				|| *(line + pos + i) == '\"'))
-			c = *(line + pos + i++);
-		else if (c != ' ' && *(line + pos + i) == c)
-		{
-			size += 2;
-			c = ' ';
-			i++;
-		}
-		else
-			i++;
-		if (*(line + pos + i - 1) == '\\')
-			size--;
-	}
-	return (i - size + 1);
+	ft_tokenclear(&env->token);
+	free(input);
+	return (1);
 }
 
-/*
-@brief put token without ' " \ into new malloced string"
-@return char *  new token string
-*/
-char	*get_token(char *line, int *pos)
+int	lexer(char *input, t_env *env)
 {
-	char	*token_str;
-	char	c;
-	int		i;
-
-	i = 0;
-	c = ' ';
-	token_str = malloc(sizeof(char) * alloc_size(line, *pos));
-	if (token_str == NULL)
-		return (NULL);
-	while (*(line + *pos) && (*(line + *pos) != ' ' || c != ' '))
-	{
-		if (c == ' ' && (*(line + *pos) == '\'' || *(line + *pos) == '\"'))
-			c = *(line + (*pos)++);
-		else if (c != ' ' && *(line + *pos) == c)
-		{
-			c = ' ';
-			(*pos)++;
-		}
-		else if (*(line + *pos) == '\\' && (*pos)++)
-			*(token_str + i++) = *(line + (*pos)++);
-		else
-			*(token_str + i++) = *(line + (*pos)++);
-	}
-	*(token_str + i) = '\0';
-	return (token_str);
-}
-
-//Move inital whitespace
-void	skip_whitespace(char *line, int *pos)
-{
-	while (ft_isspace(*(line + *pos)) == 1)
-		(*pos)++;
-}
-
-int	ignore_sep(char *line, int i)
-{
-	if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == ';')
-		return (1);
-	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '|')
-		return (1);
-	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '>')
-		return (1);
-	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '<')
-		return (1);
-	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '>'
-		&& line[i + 2] && line[i + 2] == '>')
-		return (1);
-	return (0);
-}
-
-void	check_type(t_token *token, int sep)
-{
-	if (ft_strncmp(token->token, "", 1) == 0)
-		token->type = EMPTY;
-	else if (ft_strncmp(token->token, ">>", 2) == 0 && !sep)
-		token->type = APPEND;
-	else if (ft_strncmp(token->token, ">", 1) == 0 && !sep)
-		token->type = TRUNC;
-	else if (ft_strncmp(token->token, "|", 1) == 0 && !sep)
-		token->type = PIPE;
-	else if (ft_strncmp(token->token, ";", 1) == 0 && !sep)
-		token->type = END;
-	else if (token->prev == NULL || token->prev->type >= TRUNC)
-		token->type = CMD;
-	else
-	 	token->type = ARG;
-}
-
-//Put token into linked link in env
-int	lexer_spliter(char *line, t_env *env)
-{
-	int		pos;
-	char	*part;
-	t_token	*token;
-	//int		sep;
-
-	pos = 0 ;
-	skip_whitespace(line, &pos);
-	while (*(line + pos))
-	{
-		//sep = ignore_sep(line, pos);
-		part = get_token(line, &pos);
-		if (part == NULL)
-			return (1);
-		token = ft_tokennew(part, EMPTY);
-		if (token == NULL)
-			return (ft_tokenclear(&env->token));
-		ft_tokenadd_back(&env->token, token);
-		pos++;
-	}
-	ft_tokenprint(env);
-	return (0);
-}
-
-int	lexer(char *line, t_env *env)
-{
-	printf("line: %s|\n", line);
-	if (lexer_spliter(line, env) == 1)
-		return (1);
-	return (0);
+	if (lexer_spliter(input, env))
+		return (error_exit(env, input));
+	if (pre_sanitise(env))
+		return (error_exit(env, input));
+	if (quote_cleaner(env))
+		return (error_exit(env, input));
+	type_check(env);
+	free(input);
+	return (EXIT_SUCCESS);
 }
