@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 12:15:59 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 18:28:52 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 01:39:33 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	*get_token(char *line, int *pos, int *error)
 	if (c != ' ')
 	{
 		free (token_str);
-		*error = 1;
+		*error = i;
 		return (NULL);
 	}
 	return (token_str);
@@ -82,7 +82,7 @@ int	lexer_spliter(char *line, t_env *env)
 		if (token == NULL)
 		{
 			if (error)
-				printf("minishell: parse error\n");
+				printf("minihell: parse error at %c\n", *(line + pos - error));
 			return (ft_tokenclear(&env->token));
 		}
 		ft_tokenadd_back(&env->token, token);

@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 20:48:32 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 01:41:09 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
+typedef struct s_runner
+{
+	int		i;
+	int		j;
+	char	c;
+	char	*deqstr;
+}	t_runner;
 typedef struct s_env
 {
 	t_token	*token;
@@ -52,7 +59,7 @@ void	check_ignore(char *str, int *sep);
 int		is_special_char(char c);
 int		has_special_char(char *str);
 int		find_special(char *str);
-int		quote_cleaner(t_env * env);
+int		quote_cleaner(t_env *env);
 
 //libft.c
 int		ft_isspace(char c);

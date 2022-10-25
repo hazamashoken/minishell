@@ -6,19 +6,18 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:11:15 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 20:51:47 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 09:18:01 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../cadet/minishell/includes/minishell.h"
 
-int	check_double(char *str, int str_index)
+static int	check_double(char *str, int str_index)
 {
 	if (str_index == 0)
 	{
 		if (*(str + str_index) == *(str + str_index + 1))
 			return (1);
-
 	}
 	else if (str_index == 1)
 	{
@@ -59,28 +58,30 @@ static int	split_special(t_env *env, char *str, int str_index, int *list_index)
 
 static int	check_quote(t_env *env, t_token **token, int *list_idx)
 {
-	char	c;
-	int		i;
+	t_runner	r;
 
-	c = ' ';
-	i = -1;
-	while (*((*token)->token + ++i))
+	r.c = ' ';
+	r.i = -1;
+	printf("%s\n",(*token)->token);
+	while (*((*token)->token + ++r.i))
 	{
-		if (c == ' ' && (*((*token)->token + i) == '\''
-				|| *((*token)->token + i) == '\"'))
-			c = *((*token)->token + i);
-		else if (c != ' ' && *((*token)->token + i) == c)
-			c = ' ';
-		else if (c == ' ' && is_special_char(*((*token)->token + i)))
+		printf("%c\n", *((*token)->token + r.i));
+		//ft_tokenprint(*token, 1, C_YELLOW);
+		if (r.c == ' ' && (*((*token)->token + r.i) == '\''
+				|| *((*token)->token + r.i) == '\"'))
+			r.c = *((*token)->token + r.i);
+		else if (r.c != ' ' && *((*token)->token + r.i) == r.c)
+			r.c = ' ';
+		else if (r.c == ' ' && is_special_char(*((*token)->token + r.i)))
 		{
 			if (has_special_char((*token)->token)
 				&& ((ft_strlen((*token)->token) > 2
-						&& check_double((*token)->token, i))
+						&& check_double((*token)->token, r.i))
 					|| (ft_strlen((*token)->token) > 1
-						&& !check_double((*token)->token, i)))
-				&& !(check_double((*token)->token, i)
+						&& !check_double((*token)->token, r.i)))
+				&& !(check_double((*token)->token, r.i)
 					&& ft_strlen((*token)->token) == 2))
-				return (split_special(env, (*token)->token, i, list_idx));
+				return (split_special(env, (*token)->token, r.i, list_idx));
 		}
 	}
 	return (0);

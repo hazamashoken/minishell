@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:17:48 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 20:48:38 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 09:15:29 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,39 @@ static size_t	alloc_size(char *line)
 	return (i - minus + 1);
 }
 
+void	init_runner(t_runner *r)
+{
+	r->i = 0;
+	r->j = 0;
+	r->c = ' ';
+}
+
 int	remove_quote(t_token *t)
 {
-	char	*dequote;
-	int		i;
-	int		j;
-	char	c;
+	t_runner	r;
 
-	i = 0;
-	j = 0;
-	c = ' ';
-	dequote = malloc(sizeof(char) * alloc_size(t->token));
-	if (dequote == NULL)
+	init_runner(&r);
+	r.deqstr = malloc(sizeof(char) * alloc_size(t->token));
+	if (r.deqstr == NULL)
 		return (1);
-	while (*(t->token + i) && (*(t->token + i) != ' ' || c != ' '))
+	while (*(t->token + r.i) && (*(t->token + r.i) != ' ' || r.c != ' '))
 	{
-		if (c == ' ' && (*(t->token + i) == '\'' || *(t->token + i) == '\"'))
-			c = *(t->token + i++);
-		else if (c != ' ' && *(t->token + i) == c)
+		if (r.c == ' ' && (*(t->token + r.i) == '\''
+				|| *(t->token + r.i) == '\"'))
+			r.c = *(t->token + r.i++);
+		else if (r.c != ' ' && *(t->token + r.i) == r.c)
 		{
-			i++;
-			if (c == '\"')
+			r.i++;
+			if (r.c == '\"' && r.i++)
 				t->quote = DOUEBLE_Q;
-			c = ' ';
+			r.c = ' ';
 		}
 		else
-			*(dequote + j++) = *(t->token + i++);
+			*(r.deqstr + r.j++) = *(t->token + r.i++);
 	}
-	*(dequote + j) = '\0';
+	*(r.deqstr + r.j) = '\0';
 	free(t->token);
-	t->token = dequote;
+	t->token = r.deqstr;
 	return (0);
 }
 
@@ -80,4 +83,3 @@ int	quote_cleaner(t_env *env)
 	}
 	return (0);
 }
-
