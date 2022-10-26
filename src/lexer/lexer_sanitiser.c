@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:11:15 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 09:18:01 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:51:20 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,8 @@ static int	check_quote(t_env *env, t_token **token, int *list_idx)
 
 	r.c = ' ';
 	r.i = -1;
-	printf("%s\n",(*token)->token);
 	while (*((*token)->token + ++r.i))
 	{
-		printf("%c\n", *((*token)->token + r.i));
-		//ft_tokenprint(*token, 1, C_YELLOW);
 		if (r.c == ' ' && (*((*token)->token + r.i) == '\''
 				|| *((*token)->token + r.i) == '\"'))
 			r.c = *((*token)->token + r.i);

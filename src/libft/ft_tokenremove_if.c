@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tokenclear.c                                    :+:      :+:    :+:   */
+/*   ft_tokenremove_if.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 12:02:35 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 22:16:49 by tliangso         ###   ########.fr       */
+/*   Created: 2022/10/25 10:47:25 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/25 14:05:11 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../cadet/minishell/includes/minishell.h"
 
-int	ft_tokenclear(t_token **lst)
+void	ft_tokenremove_if(t_token *begin_list,
+	void *data_ref, int (*cmp)(char *, int))
 {
 	t_token	*cur;
-	t_token	*next;
 
-	if (lst == NULL)
-		return (1);
-	cur = *lst;
-	while (cur != NULL)
+	if (begin_list == NULL)
+		return ;
+	cur = begin_list;
+	if (cmp(data_ref, *cur->token) == 1)
 	{
-		next = cur->next;
-		free(cur->token);
-		free(cur);
-		cur = next;
+		if (cur->prev)
+			cur->prev->next = cur->next;
+		if (cur->next)
+			cur->next->prev = cur->prev;
+		ft_tokendelone(cur);
+		ft_tokenremove_if(begin_list, data_ref, cmp);
 	}
-	*lst = NULL;
-	return (1);
+	cur = begin_list;
+	ft_tokenremove_if(cur->next, data_ref, cmp);
 }

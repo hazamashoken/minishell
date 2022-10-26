@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:17:48 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 09:15:29 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:23:12 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ void	init_runner(t_runner *r)
 	r->c = ' ';
 }
 
+int	return_quote_func(t_token *t, t_runner *r)
+{
+	free(t->token);
+	t->token = ft_strdup(r->deqstr);
+	free(r->deqstr);
+	return (0);
+}
+
 int	remove_quote(t_token *t)
 {
 	t_runner	r;
@@ -57,8 +65,9 @@ int	remove_quote(t_token *t)
 			r.c = *(t->token + r.i++);
 		else if (r.c != ' ' && *(t->token + r.i) == r.c)
 		{
+			t->quote = SINGLE_Q;
 			r.i++;
-			if (r.c == '\"' && r.i++)
+			if (r.c == '\"' && r.i)
 				t->quote = DOUEBLE_Q;
 			r.c = ' ';
 		}
@@ -66,9 +75,7 @@ int	remove_quote(t_token *t)
 			*(r.deqstr + r.j++) = *(t->token + r.i++);
 	}
 	*(r.deqstr + r.j) = '\0';
-	free(t->token);
-	t->token = r.deqstr;
-	return (0);
+	return (return_quote_func(t, &r));
 }
 
 int	quote_cleaner(t_env *env)

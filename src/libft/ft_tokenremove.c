@@ -6,11 +6,22 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:42:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 13:33:14 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 21:57:53 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../cadet/minishell/includes/minishell.h"
+
+void	ft_tokendel(t_token *token)
+{
+	if (token == NULL)
+		return ;
+	if (token->prev)
+		token->prev->next = token->next;
+	if (token->next)
+		token->next->prev = token->prev;
+	ft_tokendelone(token);
+}
 
 void	ft_tokenremove(t_token *head, int index)
 {

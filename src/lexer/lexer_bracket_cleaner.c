@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tokenclear.c                                    :+:      :+:    :+:   */
+/*   lexer_bracket_cleaner.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 12:02:35 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 22:16:49 by tliangso         ###   ########.fr       */
+/*   Created: 2022/10/25 10:45:32 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/25 16:21:50 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../cadet/minishell/includes/minishell.h"
+#include <stdio.h>
 
-int	ft_tokenclear(t_token **lst)
+void	bracket_cleaner(t_env *env)
 {
-	t_token	*cur;
-	t_token	*next;
+	t_token	*token;
+	t_token	*tmp;
 
-	if (lst == NULL)
-		return (1);
-	cur = *lst;
-	while (cur != NULL)
+	token = env->token;
+	while (token)
 	{
-		next = cur->next;
-		free(cur->token);
-		free(cur);
-		cur = next;
+		if (ft_strncmp(token->token, "(", 2) == 0)
+		{
+			if (token->next)
+				tmp = token->next;
+			ft_tokendel(token);
+			token = tmp;
+		}
+		else
+			token = token->next;
 	}
-	*lst = NULL;
-	return (1);
+	//ft_tokenremove_if(env->token, "()", ft_strchr);
 }

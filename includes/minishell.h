@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 01:41:09 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/26 20:25:14 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
+typedef struct s_envar
+{
+	char			*envar;
+	struct s_envar	*next;
+	struct s_envar	*prev;
+}	t_envar;
 typedef struct s_runner
 {
 	int		i;
@@ -44,7 +50,7 @@ typedef struct s_env
 {
 	t_token	*token;
 	t_token	*cur_token;
-
+	t_envar	*envar;
 }	t_env;
 
 //lexer.c
@@ -60,6 +66,7 @@ int		is_special_char(char c);
 int		has_special_char(char *str);
 int		find_special(char *str);
 int		quote_cleaner(t_env *env);
+void	bracket_cleaner(t_env *env);
 
 //libft.c
 int		ft_isspace(char c);
@@ -73,8 +80,22 @@ void	ft_tokenadd_front(t_token **lst, t_token *new);
 int		ft_tokeninsert(t_token **head, t_token *new, int index);
 void	ft_tokendelone(t_token *token);
 void	ft_tokenremove(t_token *head, int index);
+void	ft_tokenremove_if(t_token *begin_list,
+			void *data_ref, int (*cmp)(char *, int));
+void	ft_tokendel(t_token *token);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 char	*ft_strdup(char *s);
 int		ft_strlen(char *s);
+int		ft_strchr(char *s, int c);
+void	ft_envdelone(t_envar *envar);
+void	ft_envremove(t_envar *envar);
+t_envar	*ft_envnew(char *key, char *val);
+char	*ft_envget(t_envar *envar, char *key);
+void	ft_envunset(t_envar *envar, char *key);
+void	ft_envadd_back(t_envar **lst, t_envar *new);
+int		ft_envclear(t_envar **lst);
+void	ft_envprint(t_envar *envar, int mode, char *color);
+char	**ft_split(char const *s, char c);
+void	ft_envexport(t_envar *envar, char *token);
 
 #endif

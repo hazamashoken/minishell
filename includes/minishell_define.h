@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:51:48 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 20:46:28 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:26:28 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define TRUE 1
 # define FALSE 0
 
-# define SINGLE_Q 0
-# define DOUEBLE_Q 1
+# define SINGLE_Q 1
+# define DOUEBLE_Q 2
 
 # define C_RESET "\033[0m"
 # define C_YELLOW "\033[1;33m"
