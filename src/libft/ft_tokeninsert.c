@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokeninsert.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel < abossel@student.42bangkok.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 15:30:36 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 14:14:17 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:39:13 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../../cadet/minishell/includes/minishell.h"
+#include	"../../includes/minishell.h"
 
 int	ft_tokeninsert(t_token **head, t_token *new, int index)
 {

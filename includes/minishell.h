@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 01:41:09 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/26 10:59:26 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_runner
 	char	c;
 	char	*deqstr;
 }	t_runner;
+
 typedef struct s_env
 {
 	t_token	*token;
@@ -61,6 +62,10 @@ int		has_special_char(char *str);
 int		find_special(char *str);
 int		quote_cleaner(t_env *env);
 
+//expander
+int		match_wildcard(char *filename, char *pattern);
+int		expand_tokens(t_env *env);
+
 //libft.c
 int		ft_isspace(char c);
 char	*ft_strndup(char *s, int size);
@@ -76,5 +81,6 @@ void	ft_tokenremove(t_token *head, int index);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 char	*ft_strdup(char *s);
 int		ft_strlen(char *s);
+char	*ft_strchr(const char *s, int c);
 
 #endif

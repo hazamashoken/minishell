@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tokendelone.c                                   :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abossel < abossel@student.42bangkok.com    +#+  +:+       +#+        */
+/*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 00:44:56 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 10:39:22 by abossel          ###   ########.fr       */
+/*   Created: 2022/08/25 08:41:20 by abossel           #+#    #+#             */
+/*   Updated: 2022/10/26 09:22:38 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stddef.h>
 #include "../../includes/minishell.h"
 
-void	ft_tokendelone(t_token *token)
+char	*ft_strchr(const char *s, int c)
 {
-	if (token != NULL)
+	char	ch;
+
+	ch = c;
+	while (*s != ch)
 	{
-		free(token->token);
-		free(token);
+		if (*s == '\0')
+			return (NULL);
+		s++;
 	}
+	return ((char *)s);
 }

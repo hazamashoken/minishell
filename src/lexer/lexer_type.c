@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_type.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel < abossel@student.42bangkok.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:39:28 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 20:46:11 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:37:24 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static void	check_type(t_token *token)
 {

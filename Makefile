@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+         #
+#    By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:41:04 by tliangso          #+#    #+#              #
-#    Updated: 2022/10/24 15:08:44 by tliangso         ###   ########.fr        #
+#    Updated: 2022/10/26 11:06:35 by abossel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ HEAD			= -I./includes
 DIRSRC			= ./src
 BUILD_DIR		= ./build
 LEXER_DIR		= ./src/lexer
+EXPND_DIR		= ./src/expander
 PROTO_DIR		= ./prototype
 LIBFT_DIR		= ./src/libft
 
@@ -33,11 +34,13 @@ TESTER4		=
 SRCS		= $(shell find $(DIRSRC) -name '*.c')
 PROTO_SRCS	= $(shell find $(PROTO_DIR) -name '*.c') $(shell find $(LIBFT_DIR) -name '*.c')
 LEXER_SRCS		= $(shell find $(LEXER_DIR) -name '*.c') $(shell find $(LIBFT_DIR) -name '*.c')
+EXPND_SRCS		= $(shell find $(EXPND_DIR) -name '*.c')
 
 ### OBJECT FILE ###
 OBJS		= $(SRCS:%=$(BUILD_DIR)/%.o)
 PROTO_OBJS		= $(PROTO_SRCS:%=$(BUILD_DIR)/%.o)
 LEXER_OBJS		= $(LEXER_SRCS:%=$(BUILD_DIR)/%.o)
+EXPND_OBJS		= $(EXPND_SRCS:%=$(BUILD_DIR)/%.o)
 
 ### INCLUDE ###
 LIB 	= $(HEAD) -lreadline
@@ -45,7 +48,7 @@ LIB 	= $(HEAD) -lreadline
 ### COMPILATION ###
 CC		= gcc
 RM		= rm -r
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -g
 
 ### COLORS ###
 NOC		= \033[0m
@@ -57,8 +60,8 @@ WHITE	= \033[1;37m
 
 ### RULES ###
 
-$(BUILD_DIR)/$(LEXER_NAME): $(LEXER_OBJS)
-	@${CC} ${CFLAGS} $(LEXER_OBJS) $(LIB) -o $@
+$(BUILD_DIR)/$(LEXER_NAME): $(LEXER_OBJS) $(EXPND_OBJS)
+	@${CC} ${CFLAGS} $(LEXER_OBJS) $(EXPND_OBJS) $(LIB) -o $@
 	@echo "$(GREEN)$@$(NOC)"
 
 all: $(BUILD_DIR)/$(NAME)

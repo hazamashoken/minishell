@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 09:37:44 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 20:43:33 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:31:27 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	main(void)
 {
@@ -32,6 +32,8 @@ int	main(void)
 	ft_tokenprint(env.token, -1, C_BLUE);
 	type_check(&env);
 	ft_tokenprint(env.token, -1, C_YELLOW);
+	expand_tokens(&env);
+	ft_tokenprint(env.token, -1, C_GREEN);
 	ft_tokenclear(&env.token);
 	free(input);
 	return (EXIT_SUCCESS);

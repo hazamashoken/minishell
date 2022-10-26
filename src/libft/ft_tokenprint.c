@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenprint.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 11:49:07 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 21:02:46 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/26 09:56:42 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	ft_tokenprint(t_token *token, int mode, char *color)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel < abossel@student.42bangkok.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 10:23:52 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/23 23:10:54 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:39:54 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*ft_strndup(char *s, int size)
 {

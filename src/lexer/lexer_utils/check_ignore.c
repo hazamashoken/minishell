@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_ignore.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel < abossel@student.42bangkok.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:18:44 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 16:57:25 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:37:16 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../../cadet/minishell/includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 int	is_special_char(char c)
 {

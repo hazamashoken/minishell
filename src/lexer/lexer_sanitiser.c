@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_sanitiser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel < abossel@student.42bangkok.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:11:15 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 09:18:01 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:37:37 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	check_double(char *str, int str_index)
 {

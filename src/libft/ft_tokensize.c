@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokensize.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel < abossel@student.42bangkok.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 15:32:12 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/23 10:41:12 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:41:09 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../../cadet/minishell/includes/minishell.h"
+#include	"../../includes/minishell.h"
 
 int	ft_tokensize(t_token *lst)
 {
