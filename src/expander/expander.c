@@ -3,11 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:01:02 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/19 11:01:03 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/27 09:59:36 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Expand the $? meta char.
+** Size is strlen - 2 (meta char) + 11 (max int size) + 1 (terminator)
+*/
+char    *expand_error(char *token, char *pos, char **next_pos)
+{
+    char    *expand;
+    int     size;
+
+    size = ft_strlen(token) - 2 + 11 + 1;
+    expand = malloc(size);
+    if (expand == NULL)
+        return (NULL);
+    *pos = '\0';
+    pos += 2;
+    if (ft_strncmp("${?}", pos, 4) == 0)
+        pos += 2;
+    ft_strlcpy(expand, token, size);
+    //Get previous error number
+    //ft_strlcat(expand, error_number, size);
+    *next_pos = ft_strchr(expand, '\0');
+    ft_strlcat(expand, pos, size);
+    return (expand);
+}
+
+static char    *expand_token(char *token, char *pos, char **next_pos)
+{
+    char    *expand;
+
+    expand = NULL;
+    if (ft_strncmp("${?}", pos, 4) == 0)
+        expand = expand_error(token, pos, next_pos);
+    else if (ft_strncmp("$?", pos, 2) == 0)
+        expand = expand_error(token, pos, next_pos);
+    else if (ft_strncmp("${", pos, 2) == 0)
+        expand = expand_brace(token, pos, next_pos);
+    else
+        expand = expand_var(token, pos, next_pos);
+    if (expand == NULL)
+        *next_pos = pos + 1;
+    return (expand);
+}
+
+int expand_variable_tokens(t_env *env)
+{
+	t_token	*current;
+	char	*expand;
+    char    *pos;
+    char    *next_pos;
+
+	current = env->token;
+	while (current != NULL)
+	{
+        pos = ft_strchr(current->token, '$');
+        while (pos != NULL)
+        {
+            expand = expand_token(current->token, pos, &next_pos);
+            if (expand != NULL)
+            {
+                free(current->token);
+                current->token = expand;
+            }
+            pos = ft_strchr(next_pos, '$');
+		}
+		current = current->next;
+	}
+	return (1);    
+}

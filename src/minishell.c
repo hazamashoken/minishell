@@ -6,11 +6,11 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:22 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/26 11:07:23 by abossel          ###   ########.fr       */
+/*   Updated: 2022/10/27 10:01:01 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 // Use to handle ctrl+z, ctrl+c, ctrl+d
 // signal() will redirect the SIG received
@@ -18,7 +18,7 @@ void	sig_handler(int signum)
 {
 	printf("sig_id: %d\n", signum);
 }
-
+/*
 int	main(void)
 {
 	const char	*input;
@@ -31,3 +31,4 @@ int	main(void)
 	// return (EXIT_FAILURE);
 	return (0);
 }
+*/

@@ -6,11 +6,11 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 11:22:45 by abossel           #+#    #+#             */
-/*   Updated: 2022/10/26 13:01:02 by abossel          ###   ########.fr       */
+/*   Updated: 2022/10/27 09:54:26 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 #include <dirent.h>
 
 /*
@@ -81,7 +81,7 @@ static t_token *expand_wildcard(t_token *lex)
 /*
 ** Expand every token in env
 */
-int	expand_tokens(t_env *env)
+int	expand_wildcard_tokens(t_env *env)
 {
 	t_token	*current;
 	t_token	*next;

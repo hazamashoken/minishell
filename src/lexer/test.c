@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 09:37:44 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/26 11:31:27 by abossel          ###   ########.fr       */
+/*   Updated: 2022/10/27 01:45:54 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	main(void)
 	ft_tokenprint(env.token, -1, C_BLUE);
 	type_check(&env);
 	ft_tokenprint(env.token, -1, C_YELLOW);
-	expand_tokens(&env);
+	expand_wildcard_tokens(&env);
+	expand_variable_tokens(&env);
 	ft_tokenprint(env.token, -1, C_GREEN);
 	ft_tokenclear(&env.token);
 	free(input);

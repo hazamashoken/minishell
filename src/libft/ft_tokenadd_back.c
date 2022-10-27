@@ -6,11 +6,11 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 10:31:47 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/26 12:41:01 by abossel          ###   ########.fr       */
+/*   Updated: 2022/10/27 09:56:00 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../includes/minishell.h"
+#include	"minishell.h"
 
 void	ft_tokenadd_back(t_token **lst, t_token *new)
 {

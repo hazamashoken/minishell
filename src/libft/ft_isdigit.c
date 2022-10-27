@@ -1,44 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_ignore.c                                     :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 14:18:44 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/27 09:55:15 by abossel          ###   ########.fr       */
+/*   Created: 2022/08/24 20:38:43 by abossel           #+#    #+#             */
+/*   Updated: 2022/10/27 01:01:21 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "minishell.h"
 
-int	is_special_char(char c)
+int	ft_isdigit(int c)
 {
-	return (
-		c == '>' || c == '<' || c == '|' || c == '&'
-	);
-}
-
-int	has_special_char(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (*(str + ++i))
-		if (is_special_char(*(str + i)))
-			return (1);
+	if (c >= '0' && c <= '9')
+		return (1);
 	return (0);
-}
-
-int	find_special(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (*(str + ++i))
-	{
-		if (is_special_char(*(str + i)))
-			return (i);
-	}
-	return (i);
 }

@@ -6,11 +6,11 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 09:12:16 by abossel           #+#    #+#             */
-/*   Updated: 2022/10/26 13:01:05 by abossel          ###   ########.fr       */
+/*   Updated: 2022/10/27 09:54:34 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static int	match_before(char *filename, char *pattern);
 static int	match_after(char *filename, char *pattern);

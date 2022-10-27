@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/26 10:59:26 by abossel          ###   ########.fr       */
+/*   Updated: 2022/10/27 09:58:09 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,11 @@ int		quote_cleaner(t_env *env);
 
 //expander
 int		match_wildcard(char *filename, char *pattern);
-int		expand_tokens(t_env *env);
+int		expand_wildcard_tokens(t_env *env);
+char    *expand_error(char *token, char *pos, char **next_pos);
+char    *expand_brace(char *token, char *pos, char **next_pos);
+char    *expand_var(char *token, char *pos, char **next_pos);
+int		expand_variable_tokens(t_env *env);
 
 //libft.c
 int		ft_isspace(char c);
@@ -80,7 +84,12 @@ void	ft_tokendelone(t_token *token);
 void	ft_tokenremove(t_token *head, int index);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 char	*ft_strdup(char *s);
-int		ft_strlen(char *s);
+int		ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
+int		ft_isalnum(int c);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 #endif

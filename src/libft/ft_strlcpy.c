@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_ignore.c                                     :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 14:18:44 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/27 09:55:15 by abossel          ###   ########.fr       */
+/*   Created: 2022/08/25 10:03:02 by abossel           #+#    #+#             */
+/*   Updated: 2022/10/27 01:00:20 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "minishell.h"
 
-int	is_special_char(char c)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	return (
-		c == '>' || c == '<' || c == '|' || c == '&'
-	);
-}
+	size_t	i;
+	size_t	dstend;
 
-int	has_special_char(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (*(str + ++i))
-		if (is_special_char(*(str + i)))
-			return (1);
-	return (0);
-}
-
-int	find_special(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (*(str + ++i))
+	i = 0;
+	dstend = 0;
+	while (src[i] != '\0')
 	{
-		if (is_special_char(*(str + i)))
-			return (i);
+		if (dstsize != 0 && i < dstsize - 1)
+		{
+			dst[i] = src[i];
+			dstend++;
+		}
+		i++;
 	}
+	if (dstsize != 0)
+		dst[dstend] = '\0';
 	return (i);
 }
