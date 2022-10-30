@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 11:01:08 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 10:58:20 by tliangso         ###   ########.fr       */
+/*   Created: 2022/10/26 21:25:37 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/27 17:08:54 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../cadet/minishell/includes/minishell.h"
 
-// int	parse_env(t_env *env)
-// {
-// 	t_token	*token;
+int	ft_putstr_fd(char *str, int fd)
+{
+	int	len;
 
-// 	token = env->token;
-// 	while (token)
-// 	{
-
-// 		token = token->next;
-// 	}
-// }
-
-// int	parser(t_env *env)
-// {
-// 	if (parse_env(env))
-// 		return (1);
-// }
+	if (fd < 0)
+		return (-1);
+	len = 0;
+	while (str[len])
+		len++;
+	return (write(fd, str, len));
+}

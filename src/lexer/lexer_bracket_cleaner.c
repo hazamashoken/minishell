@@ -6,12 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 10:45:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 16:21:50 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/27 22:21:25 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../cadet/minishell/includes/minishell.h"
-#include <stdio.h>
 
 void	bracket_cleaner(t_env *env)
 {
@@ -31,5 +30,4 @@ void	bracket_cleaner(t_env *env)
 		else
 			token = token->next;
 	}
-	//ft_tokenremove_if(env->token, "()", ft_strchr);
 }

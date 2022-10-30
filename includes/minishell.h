@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/26 20:25:14 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/29 20:52:15 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 
 # include "minishell_define.h"
 
@@ -51,7 +52,13 @@ typedef struct s_env
 	t_token	*token;
 	t_token	*cur_token;
 	t_envar	*envar;
+	int		ret;
+	int		exit;
+	char	**tmp_environ;
+	char	**dup_environ;
 }	t_env;
+
+extern char	**environ;
 
 //lexer.c
 int		lexer(char *input, t_env *env);
@@ -67,6 +74,15 @@ int		has_special_char(char *str);
 int		find_special(char *str);
 int		quote_cleaner(t_env *env);
 void	bracket_cleaner(t_env *env);
+
+//built-in
+int		mini_echo(char **args);
+void	mini_pwd(t_env *env);
+int		args_len(char **args);
+void	mini_env(void);
+void	mini_unset(char **args);
+void	mini_cd(t_env *env, char **args);
+void	mini_export(char **args);
 
 //libft.c
 int		ft_isspace(char c);
@@ -86,10 +102,10 @@ void	ft_tokendel(t_token *token);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 char	*ft_strdup(char *s);
 int		ft_strlen(char *s);
-int		ft_strchr(char *s, int c);
+char	*ft_strchr(char *s, int c);
 void	ft_envdelone(t_envar *envar);
 void	ft_envremove(t_envar *envar);
-t_envar	*ft_envnew(char *key, char *val);
+t_envar	*ft_envnew(char *envar);
 char	*ft_envget(t_envar *envar, char *key);
 void	ft_envunset(t_envar *envar, char *key);
 void	ft_envadd_back(t_envar **lst, t_envar *new);
@@ -97,5 +113,17 @@ int		ft_envclear(t_envar **lst);
 void	ft_envprint(t_envar *envar, int mode, char *color);
 char	**ft_split(char const *s, char c);
 void	ft_envexport(t_envar *envar, char *token);
+int		ft_putstr_fd(char *str, int fd);
+int		ft_atoi(const char *nptr);
+void	error_put( t_env *env, char *str, char *args, int sig);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin_free(char *s1, char *s2, int mode);
+void	ft_free_split(char	**args);
+int		ft_split_size(char	**split);
+char	**ft_split_addback(char **words, char *string);
+char	**ft_split_dup(char **words);
+void	ft_split_free(char **words);
+int		ft_strunspn(char *str, char *reject);
+int		ft_strlcmpchr(char *s1, char *s2, char c);
 
 #endif

@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_split_dup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 11:01:08 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 10:58:20 by tliangso         ###   ########.fr       */
+/*   Created: 2022/10/28 23:33:00 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/28 23:33:10 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../cadet/minishell/includes/minishell.h"
 
-// int	parse_env(t_env *env)
-// {
-// 	t_token	*token;
+char	**ft_split_dup(char **words)
+{
+	char	**dup;
+	int		size;
+	int		i;
 
-// 	token = env->token;
-// 	while (token)
-// 	{
-
-// 		token = token->next;
-// 	}
-// }
-
-// int	parser(t_env *env)
-// {
-// 	if (parse_env(env))
-// 		return (1);
-// }
+	if (words == NULL)
+		return (NULL);
+	size = ft_split_size(words);
+	dup = malloc(sizeof(char **) * (size + 1));
+	if (dup == NULL)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		dup[i] = ft_strdup(words[i]);
+		if (dup[i] == NULL)
+		{
+			ft_split_free(dup);
+			return (NULL);
+		}
+		i++;
+	}
+	dup[i] = NULL;
+	return (dup);
+}

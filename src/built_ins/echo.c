@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 11:01:08 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 10:58:20 by tliangso         ###   ########.fr       */
+/*   Created: 2022/10/26 20:59:27 by tliangso          #+#    #+#             */
+/*   Updated: 2022/10/27 15:16:13 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../cadet/minishell/includes/minishell.h"
 
-// int	parse_env(t_env *env)
-// {
-// 	t_token	*token;
+int	mini_echo(char **args)
+{
+	int	i;
+	int	nl;
 
-// 	token = env->token;
-// 	while (token)
-// 	{
-
-// 		token = token->next;
-// 	}
-// }
-
-// int	parser(t_env *env)
-// {
-// 	if (parse_env(env))
-// 		return (1);
-// }
+	i = 1;
+	nl = 0;
+	if (args_len(args) > 1)
+	{
+		while (args[i] && ft_strncmp(args[i], "-n", 3) == 0)
+		{
+			nl = 1;
+			i++;
+		}
+		while (args[i])
+		{
+			printf("%s", args[i]);
+			if (args[i + 1] && args[i][0] != '\0')
+				write(1, " ", 1);
+		}
+	}
+	if (nl == 0)
+		write(1, "\n", 1);
+	return (0);
+}

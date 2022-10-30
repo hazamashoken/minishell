@@ -6,7 +6,7 @@
 #    By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:41:04 by tliangso          #+#    #+#              #
-#    Updated: 2022/10/24 15:08:44 by tliangso         ###   ########.fr        #
+#    Updated: 2022/10/25 22:10:13 by tliangso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,15 +57,17 @@ WHITE	= \033[1;37m
 
 ### RULES ###
 
+$(BUILD_DIR)/$(PROTO_NAME): $(PROTO_OBJS)
+	@${CC} ${CFLAGS} $(PROTO_OBJS) $(LIB) -o $@
+	@echo "$(GREEN)$@$(NOC)"
+
 $(BUILD_DIR)/$(LEXER_NAME): $(LEXER_OBJS)
 	@${CC} ${CFLAGS} $(LEXER_OBJS) $(LIB) -o $@
 	@echo "$(GREEN)$@$(NOC)"
 
 all: $(BUILD_DIR)/$(NAME)
 
-$(BUILD_DIR)/$(PROTO_NAME): $(PROTO_OBJS)
-	@${CC} ${CFLAGS} $(PROTO_OBJS) $(LIB) -o $@
-	@echo "$(GREEN)$@$(NOC)"
+
 
 $(BUILD_DIR)/$(NAME): $(OBJS)
 	@${CC} ${CFLAGS} $(OBJS) $(LIB) -o $@
