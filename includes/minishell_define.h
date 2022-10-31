@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_define.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:51:48 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 20:46:28 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/10/31 22:39:06 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@
 # define PIPE 6
 # define AND 7
 # define OR 8
+# define OPEN 9
+# define CLOSE 10
 
 # define TRUE 1
 # define FALSE 0
 
-# define SINGLE_Q 0
+# define SINGLE_Q 2
 # define DOUEBLE_Q 1
 
 # define C_RESET "\033[0m"

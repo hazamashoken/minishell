@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/27 09:58:09 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 01:58:45 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ char    *expand_error(char *token, char *pos, char **next_pos);
 char    *expand_brace(char *token, char *pos, char **next_pos);
 char    *expand_var(char *token, char *pos, char **next_pos);
 int		expand_variable_tokens(t_env *env);
+int 	expand_parentheses_tokens(t_env *env);
+int		expander_set_priority(t_token *tok);
 
 //libft.c
 int		ft_isspace(char c);
@@ -82,6 +84,8 @@ void	ft_tokenadd_front(t_token **lst, t_token *new);
 int		ft_tokeninsert(t_token **head, t_token *new, int index);
 void	ft_tokendelone(t_token *token);
 void	ft_tokenremove(t_token *head, int index);
+int		ft_tokeninject(t_token *token, t_token *new_front);
+int		ft_tokenadd_after(t_token *token, t_token *after);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 char	*ft_strdup(char *s);
 int		ft_strlen(const char *s);
@@ -91,5 +95,6 @@ int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 #endif
