@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 19:53:07 by abossel           #+#    #+#             */
-/*   Updated: 2022/11/01 13:03:42 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 13:27:07 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int expand_set_priority(t_env *env)
     return (1);
 }
 
-t_token *find_highest_priority(t_token *tok)
+static t_token *find_highest_priority(t_token *tok)
 {
     t_token *node;
     int     max;
@@ -54,7 +54,7 @@ t_token *find_highest_priority(t_token *tok)
     return (node);
 }
 
-t_token *find_priority_end(t_token *tok)
+static t_token *find_priority_end(t_token *tok)
 {
     t_token *node;
 
@@ -68,4 +68,21 @@ t_token *find_priority_end(t_token *tok)
         node = node->next;
     }
     return (node);
+}
+
+/*
+** sets start and end to the start and end tokens with highest priority.
+** returns 1 if tokens found or 0 if token list is empty
+*/
+int expand_get_highest_priority(t_env *env, t_token **start, t_token **end)
+{
+    *start = find_highest_priority(env->token);
+    *end = NULL;
+    if (*start != NULL)
+    {
+        *end = find_priority_end(*start);
+        if (*end != NULL)
+            return (1);
+    }
+    return (0);
 }

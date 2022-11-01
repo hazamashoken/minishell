@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:01:02 by tliangso          #+#    #+#             */
-/*   Updated: 2022/11/01 11:29:56 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 13:35:07 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ char    *expand_error(char *token, char *pos, char **next_pos)
     return (expand);
 }
 
-/*
-** TODO: check if token is single quote
-*/
 static char    *expand_token(char *token, char *pos, char **next_pos)
 {
     char    *expand;
@@ -58,6 +55,15 @@ static char    *expand_token(char *token, char *pos, char **next_pos)
     return (expand);
 }
 
+static int  is_expandable_variable(t_token *tok)
+{
+    if (tok->type != CMD && tok->type != ARG)
+        return (0);
+    if (tok->quote == SINGLE_Q)
+        return (0);
+    return (1);
+}
+
 int expand_variable_tokens(t_env *env)
 {
 	t_token	*current;
@@ -68,17 +74,20 @@ int expand_variable_tokens(t_env *env)
 	current = env->token;
 	while (current != NULL)
 	{
-        pos = ft_strchr(current->token, '$');
-        while (pos != NULL)
+        if (is_expandable_variable(current))
         {
-            expand = expand_token(current->token, pos, &next_pos);
-            if (expand != NULL)
+            pos = ft_strchr(current->token, '$');
+            while (pos != NULL)
             {
-                free(current->token);
-                current->token = expand;
+                expand = expand_token(current->token, pos, &next_pos);
+                if (expand != NULL)
+                {
+                    free(current->token);
+                    current->token = expand;
+                }
+                pos = ft_strchr(next_pos, '$');
             }
-            pos = ft_strchr(next_pos, '$');
-		}
+        }
 		current = current->next;
 	}
 	return (1);    

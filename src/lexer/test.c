@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 09:37:44 by tliangso          #+#    #+#             */
-/*   Updated: 2022/11/01 11:41:51 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 13:20:47 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	main(void)
 {
 	char	*input;
 	t_env	env;
+	t_token	*start;
+	t_token	*end;
 
 	env.token = NULL;
 	input = readline("\033[1;33mminishell >\033[0m ");
@@ -37,6 +39,7 @@ int	main(void)
 	expand_parentheses_tokens(&env);
 	expand_set_priority(&env);
 	expand_check_grammer(&env);
+	expand_get_highest_priority(&env, &start, &end);
 	ft_tokenprint(env.token, -1, C_GREEN);
 	ft_tokenclear(&env.token);
 	free(input);

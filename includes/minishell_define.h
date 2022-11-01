@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:51:48 by tliangso          #+#    #+#             */
-/*   Updated: 2022/11/01 13:02:57 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 13:17:43 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@
 # define OR 8
 # define OPEN_P 9
 # define CLOSE_P 10
+# define RETURN 11
 
 # define TRUE 1
 # define FALSE 0
 
-# define SINGLE_Q 2
+# define SINGLE_Q 0
 # define DOUEBLE_Q 1
 
 # define C_RESET "\033[0m"

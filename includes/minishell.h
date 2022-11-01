@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/11/01 11:12:19 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 13:14:18 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int		expand_variable_tokens(t_env *env);
 int 	expand_parentheses_tokens(t_env *env);
 int		expand_set_priority(t_env *env);
 int		expand_check_grammer(t_env *env);
+int		expand_get_highest_priority(t_env *env, t_token **start, t_token **end);
 
 //libft.c
 int		ft_isspace(char c);

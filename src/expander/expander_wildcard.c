@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 11:22:45 by abossel           #+#    #+#             */
-/*   Updated: 2022/10/27 09:54:26 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 13:36:19 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 static int	is_expandable(t_token *lex)
 {
-	if (lex->type == CMD || lex->type == ARG)
+	if ((lex->type == CMD || lex->type == ARG) && lex->quote != SINGLE_Q)
 	{
 		if (ft_strchr(lex->token, '/') != NULL)
 			return (0);
