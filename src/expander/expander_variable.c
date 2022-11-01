@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 19:51:19 by abossel           #+#    #+#             */
-/*   Updated: 2022/10/27 09:59:50 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 11:14:32 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ static char    *get_env_variable(char *pos, char *end)
     return (env);
 }
 
+static char *bad_sub_error(char *token)
+{
+    // TODO: print bad substitution message;
+    return (NULL);
+}
+
 char    *expand_brace(char *token, char *pos, char **next_pos)
 {
     char    *expand;
@@ -53,7 +59,7 @@ char    *expand_brace(char *token, char *pos, char **next_pos)
 
     zero = '\0';
     if (!is_valid_brace(pos + 2))
-        return (NULL); // throw a bad substitution error here
+        return (bad_sub_error(token));
     end = ft_strchr(pos, '}');
     env = get_env_variable(pos + 2, end);
     if (env == NULL)

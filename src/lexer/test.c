@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 09:37:44 by tliangso          #+#    #+#             */
-/*   Updated: 2022/11/01 01:58:49 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 11:41:51 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(void)
 	expand_wildcard_tokens(&env);
 	expand_variable_tokens(&env);
 	expand_parentheses_tokens(&env);
-	expander_set_priority(env.token);
+	expand_set_priority(&env);
+	expand_check_grammer(&env);
 	ft_tokenprint(env.token, -1, C_GREEN);
 	ft_tokenclear(&env.token);
 	free(input);

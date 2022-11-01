@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:01:02 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/27 09:59:36 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 11:29:56 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,16 @@ char    *expand_error(char *token, char *pos, char **next_pos)
     if (ft_strncmp("${?}", pos, 4) == 0)
         pos += 2;
     ft_strlcpy(expand, token, size);
-    //Get previous error number
+    // TODO: Get previous error number and add to string
     //ft_strlcat(expand, error_number, size);
     *next_pos = ft_strchr(expand, '\0');
     ft_strlcat(expand, pos, size);
     return (expand);
 }
 
+/*
+** TODO: check if token is single quote
+*/
 static char    *expand_token(char *token, char *pos, char **next_pos)
 {
     char    *expand;

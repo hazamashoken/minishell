@@ -6,25 +6,27 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 19:53:07 by abossel           #+#    #+#             */
-/*   Updated: 2022/11/01 01:56:25 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 13:03:42 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int expander_set_priority(t_token *tok)
+int expand_set_priority(t_env *env)
 {
     int     priority;
+    t_token *tok;
 
     priority = 0;
+    tok = env->token;
     while(tok != NULL)
     {
-        if (tok->type == OPEN)
+        if (tok->type == OPEN_P)
             priority++;
         if (priority < 0)
             return (0);
         tok->piority = priority;
-        if (tok->type == CLOSE)
+        if (tok->type == CLOSE_P)
             priority--;
         tok = tok->next;
     }

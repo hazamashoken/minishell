@@ -6,7 +6,7 @@
 /*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:51:48 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/31 22:39:06 by abossel          ###   ########.fr       */
+/*   Updated: 2022/11/01 13:02:57 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define PIPE 6
 # define AND 7
 # define OR 8
-# define OPEN 9
-# define CLOSE 10
+# define OPEN_P 9
+# define CLOSE_P 10
 
 # define TRUE 1
 # define FALSE 0
