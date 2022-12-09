@@ -1,5 +1,5 @@
-SRCLIST	= pipe_factory.c process_factory.c pathname.c pipex_utils.c \
-		  pipex_init.c heredoc.c pipex.c
+SRCLIST	= pipe_factory.c process_factory.c pathname.c error_utils.c \
+		  pipex_init.c heredoc.c nta_utils.c file_utils.c pipex.c
 
 SRCDIR	= ./
 

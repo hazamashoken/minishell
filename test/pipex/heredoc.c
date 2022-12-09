@@ -39,19 +39,19 @@ static void	read_until_limiter(int fd_input, int fd_output, char *limiter)
 	}
 }
 
-static char	*read_here_doc(char *limiter)
+char	*read_here_doc(char *limiter)
 {
-	char	pathname[100];
+	char	pathname[20];
 	char	*number;
 	int		fd;
 	int		i;
 
-	i = 0;
+	i = 1;
 	while (i < 1000)
 	{
 		number = ft_itoa(i);
-		ft_strlcpy(pathname, "/tmp/pipex_", 100);
-		ft_strlcat(pathname, number, 100);
+		ft_strlcpy(pathname, "/tmp/pipex", 20);
+		ft_strlcat(pathname, number, 20);
 		free(number);
 		if (access(pathname, F_OK) == -1)
 		{
@@ -66,24 +66,4 @@ static char	*read_here_doc(char *limiter)
 		i++;
 	}
 	return (NULL);
-}
-
-char	**make_argv_heredoc(char **argv)
-{
-	char	**argv_heredoc;
-	char	*arg2;
-
-	argv_heredoc = ft_split_dup(argv);
-	if (argv_heredoc != NULL)
-	{
-		arg2 = read_here_doc(argv[2]);
-		if (arg2 == NULL)
-		{
-			ft_split_free(argv_heredoc);
-			return (NULL);
-		}
-		free(argv_heredoc[2]);
-		argv_heredoc[2] = arg2;
-	}
-	return (argv_heredoc);
 }

@@ -6,7 +6,7 @@
 /*   By: abossel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 08:19:51 by abossel           #+#    #+#             */
-/*   Updated: 2022/10/07 14:56:57 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:01:34 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,19 @@
 static void	set_proc_clean(t_process *proc)
 {
 	proc->pid = -1;
-	proc->file[0] = -1;
-	proc->file[1] = -1;
-	proc->parent = NULL;
-	proc->child = NULL;
+	proc->status = 0;
+	proc->fileio[0] = 0;
+	proc->fileio[1] = 1;
+	proc->parent = proc->fileio;
+	proc->child = proc->fileio;
 	proc->pipes = NULL;
-	proc->argc = -1;
+	proc->argc = 0;
 	proc->argv = NULL;
 	proc->envp = NULL;
+	proc->io = NULL;
 }
 
-void	set_proc_args(t_process *proc, char *command, char **envp)
-{
-	char	**args;
-	char	*pathname;
-
-	args = ft_split(command, ' ');
-	if (args != NULL)
-	{
-		pathname = get_pathname(args[0], envp);
-		if (pathname != NULL)
-		{
-			free(args[0]);
-			args[0] = pathname;
-		}
-		proc->argc = ft_split_size(args);
-		proc->argv = args;
-		proc->envp = envp;
-	}
-}
-
-void	*free_procs(t_process **procs)
+void	free_procs(t_process **procs)
 {
 	int	i;
 
@@ -56,35 +38,30 @@ void	*free_procs(t_process **procs)
 		i = 0;
 		while (procs[i] != NULL)
 		{
-			if (procs[i]->argv != NULL)
-				ft_split_free(procs[i]->argv);
-			free(procs[i]);
+			ft_split_free(procs[i]->argv);
+			ft_split_free(procs[i]->envp);
+			close_files(procs[i]->io);
+			free_files(procs[i]->io);
 			i++;
 		}
-		free(procs);
+		nta_free((void **)procs);
 	}
-	return (NULL);
 }
 
-t_process	**make_procs(int n)
+t_process	**add_proc(t_process **procs, char **argv, char **envp)
 {
-	t_process	**procs;
-	int			i;
+	t_process	*proc;
+	char		*path;
 
-	if (n < 1)
-		return (NULL);
-	procs = malloc(sizeof(t_process *) * (n + 1));
-	if (procs == NULL)
-		return (NULL);
-	i = 0;
-	while (i < n)
-	{
-		procs[i] = malloc(sizeof(t_process));
-		if (procs[i] == NULL)
-			return (free_procs(procs));
-		set_proc_clean(procs[i]);
-		i++;
-	}
-	procs[n] = NULL;
-	return (procs);
+	proc = malloc(sizeof(t_process));
+	if (proc == NULL)
+		return (0);
+	set_proc_clean(proc);
+	proc->argc = ft_split_size(argv);
+	proc->argv = ft_split_dup(argv);
+	path = get_pathname(proc->argv[0], envp);
+	free(proc->argv[0]);
+	proc->argv[0] = path;
+	proc->envp = ft_split_dup(envp);
+	return ((t_process **)nta_add_back((void **)procs, (void *)proc));
 }

@@ -6,7 +6,7 @@
 /*   By: abossel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:56:37 by abossel           #+#    #+#             */
-/*   Updated: 2022/11/17 09:36:15 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/07 08:29:54 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int		ft_atoi(const char *str);
 int		ft_isinteger(char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strjoinv(int n, ...);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 void	ft_split_free(char **words);
@@ -56,6 +55,10 @@ int		ft_split_size(char **words);
 char	**ft_split_dup(char **words);
 void	ft_split_delfront(char **words);
 void	ft_split_delback(char **words);
+char	**ft_split_new(char *s);
+char	**ft_split_add_front(char **words, char *s);
+char	**ft_split_add_back(char **words, char *s);
+void	ft_split_print(char **words);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
@@ -73,6 +76,5 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-void	ft_lstswap(t_list *node1, t_list *node2);
 
 #endif
