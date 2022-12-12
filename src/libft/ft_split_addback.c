@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parradd_back.c                                  :+:      :+:    :+:   */
+/*   ft_split_addback.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 20:07:48 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/28 20:15:58 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:55:36 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 int	ft_split_size(char	**split)
 {

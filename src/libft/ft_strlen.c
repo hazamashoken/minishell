@@ -6,13 +6,13 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 10:23:15 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/23 23:10:50 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:31:28 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"minishell.h"
 
-int	ft_strlen(char *s)
+int	ft_strlen(const char *s)
 {
 	int	len;
 

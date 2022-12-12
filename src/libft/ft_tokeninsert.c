@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 15:30:36 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 14:14:17 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:56:31 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../../cadet/minishell/includes/minishell.h"
+#include	"minishell.h"
 
 int	ft_tokeninsert(t_token **head, t_token *new, int index)
 {

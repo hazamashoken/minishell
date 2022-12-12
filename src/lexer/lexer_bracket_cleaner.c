@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 10:45:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/27 22:21:25 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:54:53 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 void	bracket_cleaner(t_env *env)
 {

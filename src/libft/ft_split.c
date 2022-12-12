@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:00:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/26 00:00:46 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:55:46 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 static int	check_separator(char s, char c)
 {

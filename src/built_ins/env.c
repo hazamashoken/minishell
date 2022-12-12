@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 20:26:16 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/29 20:50:03 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:57:58 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 void	mini_env(void)
 {
@@ -19,7 +19,7 @@ void	mini_env(void)
 	i = -1;
 	while (environ[++i])
 	{
-		if (environ[i][0] != '_' && environ[i][0] != '\0')
+		if (environ[i][0] != '_' && environ[i][0] != '\0' && environ[i][1] != '=')
 			printf("%s\n", environ[i]);
 	}
 	printf("_=%s\n", getenv("_"));

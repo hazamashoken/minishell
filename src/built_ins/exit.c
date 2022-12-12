@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 21:38:36 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/30 08:41:38 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:54:14 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 //TODO: WIP
 void	mini_exit(t_env *env, char **args)

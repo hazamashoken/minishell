@@ -6,16 +6,16 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:18:44 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 10:39:44 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/08 23:08:10 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 int	is_special_char(char c)
 {
 	return (
-		c == '>' || c == '<' || c == '|' || c == '&' || c == '(' || c == ')'
+		c == '>' || c == '<' || c == '|' || c == '&'
 	);
 }
 

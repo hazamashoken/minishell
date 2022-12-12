@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 12:15:59 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 16:38:28 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:45:39 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 static size_t	alloc_size(char *line, int pos)
 {
@@ -62,6 +62,8 @@ static char	*get_token(char *line, int *pos, int *error)
 
 static void	skip_whitespace(char *str, int *pos)
 {
+	if (*pos < 0)
+		*pos = 0;
 	while (ft_isspace(*(str + *pos)) == 1)
 		(*pos)++;
 	(*pos)--;

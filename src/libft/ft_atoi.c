@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:59:50 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/27 15:00:07 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:55:22 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 int	ft_atoi(const char *nptr)
 {

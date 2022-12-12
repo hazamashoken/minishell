@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:01:40 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/22 11:45:50 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:56:14 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 char	*ft_strnstr(char *haystack, char *needle, size_t len)
 {

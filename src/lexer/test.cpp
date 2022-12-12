@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 09:37:44 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 20:43:33 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:19:25 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 int	main(void)
 {
@@ -18,7 +18,7 @@ int	main(void)
 	t_env	env;
 
 	env.token = NULL;
-	input = readline("\033[1;33mminishell >\033[0m ");
+	input = readline("\033[1;33mlexer minishell >\033[0m ");
 	if (input == NULL)
 		return (1);
 	if (lexer_spliter(input, &env))

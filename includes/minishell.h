@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/29 20:52:15 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/11 23:49:59 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,25 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
+# include <term.h>
 
 # include "minishell_define.h"
+# include "pipex.h"
+// # include "libft.h"
 
 typedef struct s_token
 {
 	char			*token;
 	int				type;
-	int				piority;
 	int				quote;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
 
-typedef struct s_envar
-{
-	char			*envar;
-	struct s_envar	*next;
-	struct s_envar	*prev;
-}	t_envar;
 typedef struct s_runner
 {
 	int		i;
@@ -47,15 +44,27 @@ typedef struct s_runner
 	char	c;
 	char	*deqstr;
 }	t_runner;
+
+typedef struct s_term
+{
+	struct termios	minishell;
+	struct termios	shell;
+}	t_term;
+
 typedef struct s_env
 {
-	t_token	*token;
-	t_token	*cur_token;
-	t_envar	*envar;
-	int		ret;
-	int		exit;
-	char	**tmp_environ;
-	char	**dup_environ;
+	t_token				*token;
+	t_token				*cur_token;
+	char				***pipex_cmds;
+	char				***files;
+	int					ret;
+	int					exit;
+	char				**tmp_environ;
+	char				**dup_environ;
+	t_term				*term;
+	struct sigaction	sigint;
+	struct sigaction	sigquit;
+
 }	t_env;
 
 extern char	**environ;
@@ -64,7 +73,7 @@ extern char	**environ;
 int		lexer(char *input, t_env *env);
 int		lexer_spliter(char *line, t_env *env);
 int		pre_sanitise(t_env *env);
-void	type_check(t_env *env);
+int		type_check(t_env *env);
 
 //lexer utils
 int		ignore_sep(char *str, int i);
@@ -84,6 +93,22 @@ void	mini_unset(char **args);
 void	mini_cd(t_env *env, char **args);
 void	mini_export(char **args);
 
+//init_minishell.c
+int		minishell_init(t_env *env);
+void	minishell_end(t_env *env);
+
+//expander
+int		match_wildcard(char *filename, char *pattern);
+int		expand_wildcard_tokens(t_env *env);
+char	*expand_error(char *token, char *pos, char **next_pos);
+char	*expand_brace(char *token, char *pos, char **next_pos);
+char	*expand_var(char *token, char *pos, char **next_pos);
+int		expand_variable_tokens(t_env *env);
+int		expand_parentheses_tokens(t_env *env);
+int		expand_set_priority(t_env *env);
+int		expand_check_grammer(t_env *env);
+int		expand_get_highest_priority(t_env *env, t_token **start, t_token **end);
+
 //libft.c
 int		ft_isspace(char c);
 char	*ft_strndup(char *s, int size);
@@ -101,18 +126,9 @@ void	ft_tokenremove_if(t_token *begin_list,
 void	ft_tokendel(t_token *token);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 char	*ft_strdup(char *s);
-int		ft_strlen(char *s);
+int		ft_strlen(const char *s);
 char	*ft_strchr(char *s, int c);
-void	ft_envdelone(t_envar *envar);
-void	ft_envremove(t_envar *envar);
-t_envar	*ft_envnew(char *envar);
-char	*ft_envget(t_envar *envar, char *key);
-void	ft_envunset(t_envar *envar, char *key);
-void	ft_envadd_back(t_envar **lst, t_envar *new);
-int		ft_envclear(t_envar **lst);
-void	ft_envprint(t_envar *envar, int mode, char *color);
 char	**ft_split(char const *s, char c);
-void	ft_envexport(t_envar *envar, char *token);
 int		ft_putstr_fd(char *str, int fd);
 int		ft_atoi(const char *nptr);
 void	error_put( t_env *env, char *str, char *args, int sig);
@@ -125,5 +141,15 @@ char	**ft_split_dup(char **words);
 void	ft_split_free(char **words);
 int		ft_strunspn(char *str, char *reject);
 int		ft_strlcmpchr(char *s1, char *s2, char c);
+int		ft_tokeninject(t_token *token, t_token *new_front);
+int		ft_tokenadd_after(t_token *token, t_token *after);
+int		ft_strncmp(char *s1, char *s2, size_t n);
+char	*ft_strdup(char *s);
+int		ft_isalnum(int c);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 #endif

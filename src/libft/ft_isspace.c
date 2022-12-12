@@ -6,14 +6,14 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 16:10:18 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 15:25:20 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:28:35 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 int	ft_isspace(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\v'
-		|| c == '\f' || c == '\r' || c == '\n' || c == 0);
+		|| c == '\f' || c == '\r' || c == '\n' );//|| c == 0);
 }

@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:42:43 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 13:15:54 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:56:05 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 int	ft_strncmp(char *s1, char *s2, size_t n)
 {

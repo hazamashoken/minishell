@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:51:48 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 16:26:28 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:45:29 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # define PIPE 6
 # define AND 7
 # define OR 8
+# define OPEN_P 9
+# define CLOSE_P 10
+# define FILEPATH 11
 
 # define TRUE 1
 # define FALSE 0

@@ -6,7 +6,7 @@
 #    By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:41:04 by tliangso          #+#    #+#              #
-#    Updated: 2022/10/25 22:10:13 by tliangso         ###   ########.fr        #
+#    Updated: 2022/12/11 17:18:59 by tliangso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LEXER_NAME	= lexer.out
 PROTO_NAME	= prototype.out
 
 ### DIR ###
-HEAD			= -I./includes
+HEAD			= -I./includes -I$(READLINE_DIR)include/
 DIRSRC			= ./src
 BUILD_DIR		= ./build
 LEXER_DIR		= ./src/lexer
@@ -31,7 +31,7 @@ TESTER4		=
 
 ### PATH ###
 SRCS		= $(shell find $(DIRSRC) -name '*.c')
-PROTO_SRCS	= $(shell find $(PROTO_DIR) -name '*.c') $(shell find $(LIBFT_DIR) -name '*.c')
+PROTO_SRCS	= $(shell find $(PROTO_DIR) -name '*.c')# $(shell find $(LIBFT_DIR) -name '*.c')
 LEXER_SRCS		= $(shell find $(LEXER_DIR) -name '*.c') $(shell find $(LIBFT_DIR) -name '*.c')
 
 ### OBJECT FILE ###
@@ -40,10 +40,10 @@ PROTO_OBJS		= $(PROTO_SRCS:%=$(BUILD_DIR)/%.o)
 LEXER_OBJS		= $(LEXER_SRCS:%=$(BUILD_DIR)/%.o)
 
 ### INCLUDE ###
-LIB 	= $(HEAD) -lreadline
-
+LIB 	= -lreadline -L$(READLINE_DIR)lib/
+READLINE_DIR = /usr/local/opt/readline/
 ### COMPILATION ###
-CC		= gcc
+CC		= cc
 RM		= rm -r
 CFLAGS	= -Wall -Wextra -Werror -g
 
@@ -56,18 +56,15 @@ BLUE	= \033[1;34m
 WHITE	= \033[1;37m
 
 ### RULES ###
-
-$(BUILD_DIR)/$(PROTO_NAME): $(PROTO_OBJS)
-	@${CC} ${CFLAGS} $(PROTO_OBJS) $(LIB) -o $@
-	@echo "$(GREEN)$@$(NOC)"
+all: $(BUILD_DIR)/$(NAME)
 
 $(BUILD_DIR)/$(LEXER_NAME): $(LEXER_OBJS)
 	@${CC} ${CFLAGS} $(LEXER_OBJS) $(LIB) -o $@
 	@echo "$(GREEN)$@$(NOC)"
 
-all: $(BUILD_DIR)/$(NAME)
-
-
+$(BUILD_DIR)/$(PROTO_NAME): $(PROTO_OBJS)
+	@${CC} ${CFLAGS} $(PROTO_OBJS) $(LIB) -o $@
+	@echo "$(GREEN)$@$(NOC)"
 
 $(BUILD_DIR)/$(NAME): $(OBJS)
 	@${CC} ${CFLAGS} $(OBJS) $(LIB) -o $@
@@ -75,8 +72,8 @@ $(BUILD_DIR)/$(NAME): $(OBJS)
 
 $(BUILD_DIR)/%.c.o: %.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(LIB) -c -o $@ $<
-	@echo "$(GREEN)gcc $@$(NOC)"
+	@$(CC) $(CFLAGS) $(HEAD)  -c -o $@ $<
+	@echo "$(GREEN)$(CC) $@$(NOC)"
 
 test:
 	@echo "$(LIB)\n"

@@ -6,12 +6,16 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:23:58 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/29 20:49:32 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:04:53 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../cadet/minishell/includes/minishell.h"
+// #include "minishell.h"
 #include <limits.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include "minishell_define.h"
 
 extern char	**environ;
 
@@ -281,9 +285,9 @@ int	main(void)
 
 	i = -1;
 	while (environ[++i])
-		if (environ[i][0] != '_' && environ[i][0] != '\0')
+		// if (environ[i][0] != '_' && environ[i][0] != '\0' && environ[i][1] != '=')
 			printf("%s\n", environ[i]);
-	printf("_=%s\n", getenv("_"));
+	// printf("_=%s\n", getenv("_"));
 	//printf("env : %s\n", getenv("TEST"));
 	ft_split_free(environ);
 	environ = tmp;

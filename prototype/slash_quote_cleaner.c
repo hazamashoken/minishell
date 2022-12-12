@@ -6,10 +6,10 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:23:58 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 15:24:16 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:53:39 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 

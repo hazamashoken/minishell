@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 10:30:29 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/24 20:49:49 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/11 23:40:32 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../../cadet/minishell/includes/minishell.h"
+#include	"minishell.h"
 
 t_token	*ft_tokennew(char *content, int type)
 {
@@ -23,7 +23,6 @@ t_token	*ft_tokennew(char *content, int type)
 		return (NULL);
 	new_node->token = content;
 	new_node->type = type;
-	new_node->piority = 0;
 	new_node->quote = 0;
 	new_node->next = NULL;
 	new_node->prev = NULL;

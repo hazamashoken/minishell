@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 00:44:56 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 15:20:21 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:56:28 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 void	ft_tokendelone(t_token *token)
 {

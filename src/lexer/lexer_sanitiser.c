@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:11:15 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/25 13:51:20 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:55:01 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 static int	check_double(char *str, int str_index)
 {

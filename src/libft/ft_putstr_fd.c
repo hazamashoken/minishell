@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 21:25:37 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/27 17:08:54 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:55:31 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 int	ft_putstr_fd(char *str, int fd)
 {

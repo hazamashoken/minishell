@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:25:56 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/29 20:51:03 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:54:36 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 int	arg_is_env(char *args, char *env)
 {

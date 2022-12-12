@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 20:59:27 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/27 15:16:13 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:54:04 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 int	mini_echo(char **args)
 {

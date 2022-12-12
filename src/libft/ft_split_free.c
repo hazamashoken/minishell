@@ -6,11 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 12:05:50 by tliangso          #+#    #+#             */
-/*   Updated: 2022/10/29 12:06:00 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/06 10:55:43 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../cadet/minishell/includes/minishell.h"
+#include "minishell.h"
 
 void	ft_split_free(char **words)
 {
