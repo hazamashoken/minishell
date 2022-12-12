@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 11:49:24 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/11 23:07:30 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:14:01 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ int	minishell_term(t_env *env)
 int	minishell_init(t_env *env)
 {
 	env->ret = 0;
+	env->cmd_counts = 1;
 	env->token = NULL;
+	env->files = NULL;
+	env->pipex_cmds = NULL;
 	if (minishell_term(env) < 0)
 	{
 		perror("minishell");

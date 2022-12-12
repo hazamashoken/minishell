@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/11 23:49:59 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:58:21 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_env
 	char				***files;
 	int					ret;
 	int					exit;
+	int					cmd_counts;
 	char				**tmp_environ;
 	char				**dup_environ;
 	t_term				*term;
@@ -109,6 +110,9 @@ int		expand_set_priority(t_env *env);
 int		expand_check_grammer(t_env *env);
 int		expand_get_highest_priority(t_env *env, t_token **start, t_token **end);
 
+//parser
+int		parser(t_env *env);
+
 //libft.c
 int		ft_isspace(char c);
 char	*ft_strndup(char *s, int size);
@@ -151,5 +155,12 @@ int		ft_isdigit(int c);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
+
+int		nta_size(void **array);
+void	nta_free(void **array);
+void	**nta_new(void *p);
+void	**nta_add_back(void **array, void *p);
+void	**nta_add_front(void **array, void *p);
+
 
 #endif
