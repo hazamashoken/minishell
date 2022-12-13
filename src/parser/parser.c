@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:01:08 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/12 13:58:32 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/13 10:39:21 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,88 @@ int	parser(t_env *env)
 	if (parse_env(env))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
+}
+
+/*
+ * parse command n from the t_env
+ */
+static char    **parse_command(t_env *env, int n)
+{
+	int		cmd_n;
+	char	**cmd;
+    t_token *tok;
+
+	cmd_n = 0;
+	cmd = NULL;
+    tok = env->token;
+	while (tok != NULL)
+	{
+        if (tok->type == PIPE)
+			cmd_n++;
+		if (cmd_n == n && (tok->type == CMD || tok->type == ARG))
+			cmd = (char **)nta_addback((void **)cmd, ft_strdup(tok->token));
+		tok = tok->next;
+	}
+	return (cmd);
+}
+
+/*
+ * parse all io from command n in t_env
+ */
+static t_io    **parse_io(t_env *env, int n)
+{
+	int     cmd_n;
+    t_token *tok;
+    t_io    **io;
+
+    io = NULL;
+	cmd_n = 0;
+    tok = env->token;
+	while (tok != NULL)
+	{
+        if (tok->type == PIPE)
+			cmd_n++;
+		if (cmd_n == n && tok->type == INPUT)
+			io = add_file(io, tok->token, IO_READ, NULL);
+//		else if (cmd_n == n && tok->type == INPUT) // what is heredoc type input?
+//			io = add_file(io, NULL, IO_HEREDOC, tok->token); // is heredoc limiter stored as token?
+		else if (cmd_n == n && tok->type == TRUNC)
+			io = add_file(io, tok->token, IO_TRUNC, NULL);
+		else if (cmd_n == n && tok->type == APPEND)
+			io = add_file(io, tok->token, IO_APPEND, NULL);
+		tok = tok->next;
+	}
+	return (io);
+}
+
+static t_process   **build_pipex(t_env *env)
+{
+    t_process   **procs;
+    char        **cmd;
+    int         n;
+
+    n = 0;
+    procs  = NULL;
+    cmd = parse_command(env, n);
+    while (cmd != NULL)
+    {
+        procs = add_proc(procs, cmd, env->tmp_environ); // is tmp_environ the correct one to use?
+        procs[n].io = parse_io(env, n);
+        n++;
+        cmd = parse_command(env, n);
+    }
+}
+
+int run_pipex(t_env *env)
+{
+    t_process   **procs;
+    int         status;
+
+    procs = build_pipex(env);
+    if (procs == NULL)
+        return (0);
+	init_pipex(procs);
+	status = args_exec(procs);
+	free_pipex(procs);
+	return (status);
 }
