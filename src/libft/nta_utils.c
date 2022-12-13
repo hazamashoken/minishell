@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   nta_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abossel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:00:41 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/08 17:02:53 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/13 19:03:59 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-
+#include "minishell.h"
 /*
  * returns the size of array
  */

@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 21:17:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/11 23:28:51 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/13 22:05:02 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int	lexer(char *input, t_env *env)
 		return (error_exit(env, input));
 	if (quote_cleaner(env))
 		return (error_exit(env, input));
-	ft_tokenprint(env->token, -1, C_GREEN);
+	//ft_tokenprint(env->token, -1, C_GREEN);
 	expand_variable_tokens(env);
 	expand_wildcard_tokens(env);
-	ft_tokenprint(env->token, -1, C_BLUE);
+	//ft_tokenprint(env->token, -1, C_BLUE);
 	if (type_check(env))
 		return (error_exit(env, input));
 	// bracket_cleaner(env);
-	ft_tokenprint(env->token, -1, C_YELLOW);
+	//ft_tokenprint(env->token, -1, C_YELLOW);
 	free(input);
 	return (EXIT_SUCCESS);
 }

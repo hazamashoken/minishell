@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:39:28 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/12 13:51:12 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/13 22:05:16 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,16 @@ int	type_check(t_env *env)
 
 	cmd_set = 0;
 	token = NULL;
-	printf("check\n");
+	//printf("check\n");
 	if (env->token)
 		token = env->token;
 	while (token)
 	{
 		if (check_type(env, token, &cmd_set))
 			return (EXIT_FAILURE);
-		printf("check2\n");
+		//printf("check2\n");
 		token = token->next;
-		printf("%p\n",token);
+		//printf("%p\n",token);
 	}
 	return (EXIT_SUCCESS);
 }

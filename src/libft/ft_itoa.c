@@ -1,31 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/27 15:16:07 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/13 16:17:02 by tliangso         ###   ########.fr       */
+/*   Created: 2022/06/14 21:23:10 by abossel           #+#    #+#             */
+/*   Updated: 2022/12/13 19:54:10 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	mini_cd(t_env *env, char **args)
+static void	ft_add_char(char *s, char c)
 {
-	char	*error;
+	while (*s != '\0')
+		s++;
+	*s = c;
+	s++;
+	*s = '\0';
+}
 
-	if (chdir(args[0]) == -1)
+static void	ft_itoa2(int n, char *s)
+{
+	int		div;
+	int		mod;
+	char	c;
+
+	div = n / 10;
+	mod = n % 10;
+	if (n < 0)
 	{
-		error = strerror(errno);
-		write(1, "cd: ", 4);
-		ft_putstr_fd(error, 1);
-		write(1, ": ", 2);
-		ft_putstr_fd(args[0], 1);
-		write(1, "\n", 1);
-		free(error);
-		printf("errno: %d\n", errno);
-		env->ret = 1;
+		ft_add_char(s, '-');
+		div = -div;
+		mod = -mod;
 	}
+	if (div != 0)
+	{
+		ft_itoa2(div, s);
+	}
+	c = '0' + mod;
+	ft_add_char(s, c);
+}
+
+char	*ft_itoa(int n)
+{
+	char	str[12];
+
+	str[0] = '\0';
+	ft_itoa2(n, str);
+	return (ft_strdup(str));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/13 10:41:58 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/13 19:54:59 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 # include "minishell_define.h"
 # include "pipex.h"
+# include "get_next_line.h"
 // # include "libft.h"
 
 typedef struct s_token
@@ -72,6 +73,7 @@ extern char	**environ;
 
 //parser.c
 int		run_pipex(t_env *env);
+int		parser(t_env *env);
 
 //lexer.c
 int		lexer(char *input, t_env *env);
@@ -113,10 +115,8 @@ int		expand_set_priority(t_env *env);
 int		expand_check_grammer(t_env *env);
 int		expand_get_highest_priority(t_env *env, t_token **start, t_token **end);
 
-//parser
-int		parser(t_env *env);
-
 //libft.c
+char	*ft_itoa(int n);
 int		ft_isspace(char c);
 char	*ft_strndup(char *s, int size);
 void	ft_tokenadd_back(t_token **lst, t_token *new);
@@ -158,12 +158,5 @@ int		ft_isdigit(int c);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
-
-int		nta_size(void **array);
-void	nta_free(void **array);
-void	**nta_new(void *p);
-void	**nta_add_back(void **array, void *p);
-void	**nta_add_front(void **array, void *p);
-
 
 #endif

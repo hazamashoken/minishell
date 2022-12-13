@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abossel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 23:45:53 by abossel           #+#    #+#             */
-/*   Updated: 2022/10/08 23:56:25 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/13 19:01:14 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include "libft.h"
-#include "pipex.h"
+// #include "libft.h"
+#include "minishell.h"
 
 static void	read_until_limiter(int fd_input, int fd_output, char *limiter)
 {

@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/27 15:16:07 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/13 16:17:02 by tliangso         ###   ########.fr       */
+/*   Created: 2022/12/12 15:21:19 by tliangso          #+#    #+#             */
+/*   Updated: 2022/12/12 15:22:13 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	mini_cd(t_env *env, char **args)
+void	*calloc(size_t size, size_t nbmem)
 {
-	char	*error;
-
-	if (chdir(args[0]) == -1)
-	{
-		error = strerror(errno);
-		write(1, "cd: ", 4);
-		ft_putstr_fd(error, 1);
-		write(1, ": ", 2);
-		ft_putstr_fd(args[0], 1);
-		write(1, "\n", 1);
-		free(error);
-		printf("errno: %d\n", errno);
-		env->ret = 1;
-	}
+	
 }

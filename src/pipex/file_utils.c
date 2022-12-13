@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abossel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:27:47 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/08 16:55:34 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/13 19:30:32 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "libft.h"
-#include "pipex.h"
+// #include "libft.h"
+#include "minishell.h"
 
 static int	open_file(t_io *io)
 {
@@ -65,7 +65,7 @@ int	open_files(t_io **ios)
 	{
 		ios[i]->fd = open_file(ios[i]);
 		if (ios[i]->fd == -1)
-			error_exit();
+			error_exit_pipex();
 		i++;
 	}
 	return (1);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   process_factory.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abossel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 08:19:51 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/08 17:01:34 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/13 19:01:54 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
-#include "pipex.h"
+// #include "libft.h"
+#include "minishell.h"
 
 static void	set_proc_clean(t_process *proc)
 {

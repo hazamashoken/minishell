@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abossel <abossel@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:01:08 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/13 10:39:21 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/13 22:16:40 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,17 @@ static char    **parse_command(t_env *env, int n)
 {
 	int		cmd_n;
 	char	**cmd;
-    t_token *tok;
+	t_token *tok;
 
 	cmd_n = 0;
 	cmd = NULL;
-    tok = env->token;
+	tok = env->token;
 	while (tok != NULL)
 	{
-        if (tok->type == PIPE)
+		if (tok->type == PIPE)
 			cmd_n++;
 		if (cmd_n == n && (tok->type == CMD || tok->type == ARG))
-			cmd = (char **)nta_addback((void **)cmd, ft_strdup(tok->token));
+			cmd = (char **)nta_add_back((void **)cmd, ft_strdup(tok->token));
 		tok = tok->next;
 	}
 	return (cmd);
@@ -135,18 +135,18 @@ static char    **parse_command(t_env *env, int n)
 /*
  * parse all io from command n in t_env
  */
-static t_io    **parse_io(t_env *env, int n)
+static t_io	**parse_io(t_env *env, int n) // ADD BITFIELD
 {
-	int     cmd_n;
-    t_token *tok;
-    t_io    **io;
+	int		cmd_n;
+	t_token	*tok;
+	t_io	**io;
 
-    io = NULL;
+	io = NULL;
 	cmd_n = 0;
-    tok = env->token;
+	tok = env->token;
 	while (tok != NULL)
 	{
-        if (tok->type == PIPE)
+		if (tok->type == PIPE)
 			cmd_n++;
 		if (cmd_n == n && tok->type == INPUT)
 			io = add_file(io, tok->token, IO_READ, NULL);
@@ -161,32 +161,34 @@ static t_io    **parse_io(t_env *env, int n)
 	return (io);
 }
 
-static t_process   **build_pipex(t_env *env)
+static t_process	**build_pipex(t_env *env)
 {
-    t_process   **procs;
-    char        **cmd;
-    int         n;
+	t_process	**procs;
+	char		**cmd;
+	int			n;
 
-    n = 0;
-    procs  = NULL;
-    cmd = parse_command(env, n);
-    while (cmd != NULL)
-    {
-        procs = add_proc(procs, cmd, env->tmp_environ); // is tmp_environ the correct one to use?
-        procs[n].io = parse_io(env, n);
-        n++;
-        cmd = parse_command(env, n);
-    }
+	n = 0;
+	procs = NULL;
+	cmd = parse_command(env, n);
+	while (cmd != NULL)
+	{
+		procs = add_proc(procs, cmd, environ);
+		// is tmp_environ the correct one to use?
+		procs[n]->io = parse_io(env, n);
+		n++;
+		cmd = parse_command(env, n);
+	}
+	return (procs);
 }
 
 int run_pipex(t_env *env)
 {
-    t_process   **procs;
-    int         status;
+	t_process	**procs;
+	int			status;
 
-    procs = build_pipex(env);
-    if (procs == NULL)
-        return (0);
+	procs = build_pipex(env);
+	if (procs == NULL)
+		return (0);
 	init_pipex(procs);
 	status = args_exec(procs);
 	free_pipex(procs);

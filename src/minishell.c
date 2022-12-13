@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:22 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/12 15:09:42 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/13 22:06:09 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,16 +113,15 @@ int	main(void)
 		add_history(input);
 		if (lexer(input, &env))
 			continue ;
-		if (parser(&env))
-			continue ;
-		printf("%p\n", *env.files);
-		ft_print_3array(env.files);
-		ft_print_3array(env.pipex_cmds);
-		ft_tokenprint(env.token, -1, C_GREEN);
+		run_pipex(&env);
+		// printf("%p\n", *env.files);
+		// ft_print_3array(env.files);
+		// ft_print_3array(env.pipex_cmds);
+		// ft_tokenprint(env.token, -1, C_GREEN);
 		//executor(&env);
 		ft_tokenclear(&env.token);
-		tri_array_free(env.pipex_cmds);
-		tri_array_free(env.files);
+		// tri_array_free(env.pipex_cmds);
+		// tri_array_free(env.files);
 	}
 	printf("\nexit\n");
 	minishell_end(&env);

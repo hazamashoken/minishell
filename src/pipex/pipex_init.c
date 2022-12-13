@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abossel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:33:57 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/08 16:38:51 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/13 19:01:24 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
-#include "pipex.h"
+// #include "libft.h"
+#include "minishell.h"
 
 static int	**init_pipes(t_process **procs)
 {

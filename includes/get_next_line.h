@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/27 15:16:07 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/13 16:17:02 by tliangso         ###   ########.fr       */
+/*   Created: 2022/09/19 20:32:17 by tliangso          #+#    #+#             */
+/*   Updated: 2022/12/13 19:40:28 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	mini_cd(t_env *env, char **args)
-{
-	char	*error;
+# include <stddef.h>
+# include <unistd.h>
+# include <stdlib.h>
 
-	if (chdir(args[0]) == -1)
-	{
-		error = strerror(errno);
-		write(1, "cd: ", 4);
-		ft_putstr_fd(error, 1);
-		write(1, ": ", 2);
-		ft_putstr_fd(args[0], 1);
-		write(1, "\n", 1);
-		free(error);
-		printf("errno: %d\n", errno);
-		env->ret = 1;
-	}
-}
+# define BUFFER_SIZE 1024
+
+char	*get_next_line(int fd);
+
+#endif
