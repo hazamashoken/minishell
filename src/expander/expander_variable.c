@@ -85,7 +85,7 @@ char	*expand_var(char *token, char *pos, char **next_pos)
 	int		size;
 
 	zero = '\0';
-	if (!ft_isalpha(pos[1]) || pos[1] == '_')
+	if (!ft_isalpha(pos[1]))
 		return (NULL);
 	end = pos + 1;
 	while ((ft_isalnum(*end) || *end == '_') && *end != '\0')
