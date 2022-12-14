@@ -30,10 +30,11 @@ int	mini_echo(char **args)
 		{
 			printf("%s", args[i]);
 			if (args[i + 1] && args[i][0] != '\0')
-				write(1, " ", 1);
+				printf(" ");
+			i++;
 		}
 	}
 	if (nl == 0)
-		write(1, "\n", 1);
+		printf("\n");
 	return (0);
 }

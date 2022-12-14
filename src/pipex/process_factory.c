@@ -26,6 +26,7 @@ static void	set_proc_clean(t_process *proc)
 	proc->argc = 0;
 	proc->argv = NULL;
 	proc->envp = NULL;
+	proc->path = NULL;
 	proc->io = NULL;
 }
 
@@ -40,6 +41,8 @@ void	free_procs(t_process **procs)
 		{
 			ft_split_free(procs[i]->argv);
 			ft_split_free(procs[i]->envp);
+			if (procs[i]->path != NULL)
+				free(procs[i]->path);
 			close_files(procs[i]->io);
 			free_files(procs[i]->io);
 			i++;
@@ -51,7 +54,6 @@ void	free_procs(t_process **procs)
 t_process	**add_proc(t_process **procs, char **argv, char **envp)
 {
 	t_process	*proc;
-	char		*path;
 
 	proc = malloc(sizeof(t_process));
 	if (proc == NULL)
@@ -59,9 +61,7 @@ t_process	**add_proc(t_process **procs, char **argv, char **envp)
 	set_proc_clean(proc);
 	proc->argc = ft_split_size(argv);
 	proc->argv = ft_split_dup(argv);
-	path = get_pathname(proc->argv[0], envp);
-	free(proc->argv[0]);
-	proc->argv[0] = path;
+	proc->path = get_pathname(argv[0], envp);
 	proc->envp = ft_split_dup(envp);
 	return ((t_process **)nta_add_back((void **)procs, (void *)proc));
 }

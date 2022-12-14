@@ -12,20 +12,23 @@
 
 #include "minishell.h"
 
-void	mini_cd(t_env *env, char **args)
+int	mini_cd(t_env *env, char **args)
 {
 	char	*error;
 
+	if (env)
+		;
 	if (chdir(args[0]) == -1)
 	{
 		error = strerror(errno);
-		write(1, "cd: ", 4);
-		ft_putstr_fd(error, 1);
-		write(1, ": ", 2);
-		ft_putstr_fd(args[0], 1);
-		write(1, "\n", 1);
-		free(error);
-		printf("errno: %d\n", errno);
-		env->ret = 1;
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		ft_putstr_fd(error, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(args[0], STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
+		//printf("errno: %d\n", errno);
+		//env->ret = 1;
+		return (1);
 	}
+	return (0);
 }

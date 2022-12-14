@@ -37,6 +37,7 @@ typedef struct s_process
 	int		argc;
 	char	**argv;
 	char	**envp;
+	char	*path;
 	t_io	**io;
 }	t_process;
 

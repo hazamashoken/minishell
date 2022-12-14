@@ -96,7 +96,7 @@ void	mini_pwd(t_env *env);
 int		args_len(char **args);
 void	mini_env(void);
 void	mini_unset(char **args);
-void	mini_cd(t_env *env, char **args);
+int		mini_cd(t_env *env, char **args);
 void	mini_export(char **args);
 
 //init_minishell.c
