@@ -106,7 +106,7 @@ void	minishell_end(t_env *env);
 //expander
 int		match_wildcard(char *filename, char *pattern);
 int		expand_wildcard_tokens(t_env *env);
-char	*expand_error(char *token, char *pos, char **next_pos);
+char	*expand_error(t_env *env, char *token, char *pos, char **next_pos);
 char	*expand_brace(char *token, char *pos, char **next_pos);
 char	*expand_var(char *token, char *pos, char **next_pos);
 int		expand_variable_tokens(t_env *env);

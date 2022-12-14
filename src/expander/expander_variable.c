@@ -43,11 +43,9 @@ static char	*get_env_variable(char *pos, char *end)
 	return (env);
 }
 
-// change t_tken to void (Earth) TMP
 static char	*bad_sub_error(void)
 {
-	// TODO: print bad substitution message;
-	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd("minishell: bad substitution\n", 2);
 	return (NULL);
 }
 
@@ -87,10 +85,10 @@ char	*expand_var(char *token, char *pos, char **next_pos)
 	int		size;
 
 	zero = '\0';
-	if (!ft_isalpha(pos[1]))
+	if (!ft_isalpha(pos[1]) || pos[1] == '_')
 		return (NULL);
 	end = pos + 1;
-	while (ft_isalnum(*end) && *end != '\0')
+	while ((ft_isalnum(*end) || *end == '_') && *end != '\0')
 		end++;
 	env = get_env_variable(pos + 1, end);
 	if (env == NULL)

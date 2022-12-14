@@ -29,8 +29,10 @@ int	lexer(char *input, t_env *env)
 	if (quote_cleaner(env))
 		return (error_exit(env, input));
 	//ft_tokenprint(env->token, -1, C_GREEN);
-	expand_variable_tokens(env);
-	expand_wildcard_tokens(env);
+	if (!expand_variable_tokens(env))
+		return (error_exit(env, input));
+	if (!expand_wildcard_tokens(env))
+		return (error_exit(env, input));
 	//ft_tokenprint(env->token, -1, C_BLUE);
 	if (type_check(env))
 		return (error_exit(env, input));
