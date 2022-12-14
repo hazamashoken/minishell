@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:01:08 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/14 14:51:52 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:12:24 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ int	run_pipex(t_env *env)
 	if (procs == NULL)
 		return (0);
 	init_pipex(procs);
-	status = args_exec(procs);
+	status = args_exec(env, procs);
 	free_pipex(procs);
 	return (status);
 }

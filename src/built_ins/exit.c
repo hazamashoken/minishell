@@ -6,15 +6,15 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 21:38:36 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/14 13:52:45 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:15:31 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	mini_exit(char **args)
+int	mini_exit(t_env *env, char **args)
 {
-	ft_putstr_fd("exit", 1);
+	env->exit = 0;
 	if (args_len(args) > 0)
 		return (ft_atoi(args[0]));
 	else

@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 21:26:11 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/14 14:53:19 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 21:28:00 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,17 @@
 // 	printf("\n");
 // }
 
-static int	run_builtin_outside(t_process *proc)
+static int	run_builtin_outside(t_env *env, t_process *proc)
 {
 	proc->status = -1;
 	if (ft_strncmp(proc->argv[0], "cd", 3) == 0)
 		proc->status = mini_cd(&proc->argv[1]);
 	else if (ft_strncmp(proc->argv[0], "export", 7) == 0)
-		proc->status = mini_export(proc->argv);
+		proc->status = mini_export(env, proc->argv);
 	else if (ft_strncmp(proc->argv[0], "unset", 6) == 0)
 		proc->status = mini_unset(proc->argv);
 	else if (ft_strncmp(proc->argv[0], "exit", 5) == 0)
-		proc->status = mini_exit(proc->argv);
+		proc->status = mini_exit(env, proc->argv);
 	return (proc->status);
 }
 
@@ -85,7 +85,7 @@ static pid_t	fork_exec(t_process *proc)
 	return (proc->pid);
 }
 
-int	args_exec(t_process **procs)
+int	args_exec(t_env *env, t_process **procs)
 {
 	int	status;
 	int	i;
@@ -95,7 +95,7 @@ int	args_exec(t_process **procs)
 	{
 		open_files(procs[i]->io);
 		set_file_io(procs[i]);
-		if (run_builtin_outside(procs[i]) == -1)
+		if (run_builtin_outside(env, procs[i]) == -1)
 			fork_exec(procs[i]);
 		i++;
 	}

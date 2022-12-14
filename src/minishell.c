@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:22 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/14 14:52:16 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 21:22:47 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,10 @@ int	main(void)
 			break ;
 		add_history(input);
 		if (lexer(input, &env))
+		{
+			ft_tokenclear(&env.token);
 			continue ;
+		}
 		env.ret = run_pipex(&env);
 		ft_tokenclear(&env.token);
 	}

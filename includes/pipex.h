@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 23:04:13 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/13 19:29:38 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:14:58 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,5 @@ void		free_procs(t_process **proc);
 void		*free_pipex(t_process **procs);
 int			init_pipex(t_process **procs);
 void		set_file_io(t_process *proc);
-
-int			args_exec(t_process **procs);
 
 #endif

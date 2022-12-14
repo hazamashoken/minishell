@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 11:49:24 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/14 14:18:08 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 21:31:51 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	minishell_init(t_env *env)
 		exit(EXIT_FAILURE);
 	}
 	env->tmp_environ = environ;
-	environ = ft_split_dup(environ);
-	env->dup_environ = environ;
+	env->dup_environ = ft_split_dup(environ);
+	environ = env->dup_environ;
 	env->sigint.sa_handler = sig_handler;
 	sigemptyset(&env->sigint.sa_mask);
 	env->sigint.sa_flags = SA_RESTART;

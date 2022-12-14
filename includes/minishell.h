@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/14 14:03:54 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 21:27:34 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ extern char	**environ;
 //parser.c
 int		run_pipex(t_env *env);
 int		parser(t_env *env);
+int		args_exec(t_env *env, t_process **procs);
 
 //lexer.c
 int		lexer(char *input, t_env *env);
@@ -97,8 +98,8 @@ int		args_len(char **args);
 int		mini_env(void);
 int		mini_unset(char **args);
 int		mini_cd(char **args);
-int		mini_export(char **args);
-int		mini_exit(char **args);
+int		mini_export(t_env *env, char **args);
+int		mini_exit(t_env *env, char **args);
 
 //init_minishell.c
 int		minishell_init(t_env *env);
