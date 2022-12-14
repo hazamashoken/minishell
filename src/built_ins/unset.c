@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:25:56 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/13 16:02:48 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:46:34 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,12 @@ int	unset_env(char *args)
 	return (0);
 }
 
-void	mini_unset(char **args)
+int	mini_unset(char **args)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	while (args[++i])
 		unset_env(args[i]);
+	return (EXIT_SUCCESS);
 }

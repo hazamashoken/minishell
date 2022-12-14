@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/13 19:54:59 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 14:03:54 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,13 @@ void	bracket_cleaner(t_env *env);
 
 //built-in
 int		mini_echo(char **args);
-void	mini_pwd(t_env *env);
+int		mini_pwd(void);
 int		args_len(char **args);
-void	mini_env(void);
-void	mini_unset(char **args);
-int		mini_cd(t_env *env, char **args);
-void	mini_export(char **args);
+int		mini_env(void);
+int		mini_unset(char **args);
+int		mini_cd(char **args);
+int		mini_export(char **args);
+int		mini_exit(char **args);
 
 //init_minishell.c
 int		minishell_init(t_env *env);
@@ -106,7 +107,7 @@ void	minishell_end(t_env *env);
 //expander
 int		match_wildcard(char *filename, char *pattern);
 int		expand_wildcard_tokens(t_env *env);
-char	*expand_error(char *token, char *pos, char **next_pos);
+char	*expand_error(t_env *env, char *token, char *pos, char **next_pos);
 char	*expand_brace(char *token, char *pos, char **next_pos);
 char	*expand_var(char *token, char *pos, char **next_pos);
 int		expand_variable_tokens(t_env *env);

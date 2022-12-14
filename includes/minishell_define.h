@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:51:48 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/09 12:45:29 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 11:46:37 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 # define MINISHELL_DEFINE_H
 
 # define EMPTY 0
-# define CMD 1
-# define ARG 2
-# define TRUNC 3
-# define APPEND 4
-# define INPUT 5
-# define PIPE 6
-# define AND 7
-# define OR 8
-# define OPEN_P 9
-# define CLOSE_P 10
-# define FILEPATH 11
+# define CMD 256
+# define ARG 512
+# define TRUNC 1
+# define APPEND 2
+# define INPUT 4
+# define HEREDOC 8
+# define FPATH 16
+# define PIPE 32
+# define OPEN_P 64
+# define CLOSE_P 128
 
 # define TRUE 1
 # define FALSE 0

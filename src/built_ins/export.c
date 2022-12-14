@@ -6,23 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 21:40:10 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/06 10:54:17 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 14:22:09 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	add_env(char *env)
-{
-	char	**dup;
-
-	dup = ft_split_dup(environ);
-	ft_split_free(environ);
-	environ = dup;
-	environ = ft_split_addback(dup, env);
-	dup = environ;
-
-}
 
 void	reset_env(char *args)
 {
@@ -41,14 +29,15 @@ void	reset_env(char *args)
 			return ;
 		}
 	}
-	add_env(args);
+	environ = ft_split_addback(environ, args);
 }
 
-void	mini_export(char **args)
+int	mini_export(char **args)
 {
 	int		i;
 
-	i = -1;
+	i = 0;
 	while (args[++i])
 		reset_env(args[i]);
+	return (EXIT_SUCCESS);
 }

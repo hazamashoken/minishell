@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 11:49:24 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/12 11:14:01 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 14:18:08 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	minishell_term(t_env *env)
 int	minishell_init(t_env *env)
 {
 	env->ret = 0;
+	env->exit = 1;
 	env->cmd_counts = 1;
 	env->token = NULL;
 	env->files = NULL;
@@ -65,9 +66,8 @@ int	minishell_init(t_env *env)
 
 void	minishell_end(t_env *env)
 {
-	ft_split_free(env->dup_environ);
 	environ = env->tmp_environ;
+	ft_split_free(env->dup_environ);
 	ft_tokenclear(&env->token);
 	free(env->term);
-	printf("exit free\n");
 }

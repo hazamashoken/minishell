@@ -6,19 +6,22 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:16:07 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/13 16:17:02 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:44:32 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	mini_cd(t_env *env, char **args)
+int	mini_cd(char **args)
 {
 	char	*error;
+	int		status;
 
-	if (env)
-		;
-	if (chdir(args[0]) == -1)
+	if (args[0] == NULL)
+		status = chdir(getenv("HOME"));
+	else
+		status = chdir(args[0]);
+	if (status == -1)
 	{
 		error = strerror(errno);
 		ft_putstr_fd("cd: ", STDERR_FILENO);
@@ -26,8 +29,6 @@ int	mini_cd(t_env *env, char **args)
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putstr_fd(args[0], STDERR_FILENO);
 		ft_putstr_fd("\n", STDERR_FILENO);
-		//printf("errno: %d\n", errno);
-		//env->ret = 1;
 		return (1);
 	}
 	return (0);

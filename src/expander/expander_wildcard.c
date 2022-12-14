@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 11:22:45 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/13 22:12:43 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 14:51:33 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,19 @@ static void	fix_parameters(t_token *original, t_token *expand)
 	}
 }
 
-
-
 /*
 ** Takes a token lex and returns a wildcard matched linked list of tokens.
 ** CMD gets expanded to CMD->ARG->ARG. ARG gets expanded to ARG->ARG->ARG.
 */
-static t_token	*expand_wildcard(t_token *lex)
+static t_token	*expand_wildcard(t_token *lex, t_token **exp)
 {
 	DIR				*d;
 	struct dirent	*de;
-	t_token			*exp;
 	int				t;
 
 	if (!is_expandable(lex))
 		return (NULL);
-	exp = NULL;
+	*exp = NULL;
 	d = opendir(".");
 	if (d == NULL)
 		return (NULL);
@@ -69,14 +66,22 @@ static t_token	*expand_wildcard(t_token *lex)
 		if (match_wildcard(de->d_name, lex->token))
 		{
 			if (de->d_name[0] != '.' || lex->token[0] == '.')
-				ft_tokenadd_back(&exp, ft_tokennew(ft_strdup(de->d_name), t));
+				ft_tokenadd_back(exp, ft_tokennew(ft_strdup(de->d_name), t));
 			t = ARG;
 		}
 		de = readdir(d);
 	}
 	closedir(d);
-	fix_parameters(lex, exp);
-	return (exp);
+	fix_parameters(lex, *exp);
+	return (*exp);
+}
+
+static int	wildcard_error(char *arg)
+{
+	ft_putstr_fd("minishell: no matches found: ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd("\n", 2);
+	return (0);
 }
 
 /*
@@ -94,7 +99,8 @@ int	expand_wildcard_tokens(t_env *env)
 		next = current->next;
 		if (is_expandable(current))
 		{
-			expand = expand_wildcard(current);
+			if (expand_wildcard(current, &expand) == NULL)
+				return (wildcard_error(current->token));
 			ft_tokenadd_back(&expand, current->next);
 			if (current == env->token)
 				env->token = expand;

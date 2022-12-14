@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:39:28 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/13 22:05:16 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 11:48:20 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ static int	return_check(t_token *token)
 	return (EXIT_SUCCESS);
 }
 
-static int	check_type(t_env *env,t_token *token, int *cmd)
+static int	check_type(t_env *env, t_token *token, int *cmd)
 {
+	token->type = 0;
 	if (ft_strncmp(token->token, "", 1) == 0)
 		token->type = EMPTY;
 	else if (ft_strncmp(token->token, "|", 1) == 0)
@@ -39,19 +40,18 @@ static int	check_type(t_env *env,t_token *token, int *cmd)
 		token->type = PIPE;
 	}
 	else if (ft_strncmp(token->token, ">>", 2) == 0)
-		token->type = APPEND;
+		token->type |= APPEND;
+	else if (ft_strncmp(token->token, "<<", 2) == 0)
+		token->type |= HEREDOC;
 	else if (ft_strncmp(token->token, ">", 1) == 0)
-		token->type = TRUNC;
+		token->type |= TRUNC;
 	else if (ft_strncmp(token->token, "<", 1) == 0)
-		token->type = INPUT;
+		token->type |= INPUT;
 	else if (token->prev != NULL
-		&& token->prev->type >= TRUNC && token->prev->type <= INPUT)
-		token->type = FILEPATH;
+		&& token->prev->type >= TRUNC && token->prev->type <= HEREDOC)
+		token->type |= FPATH | token->prev->type;
 	else if (cmd == 0)
-	{
-		*cmd = 1;
-		token->type = CMD;
-	}
+		token->type = ++(*cmd) + 255;
 	else
 		token->type = ARG;
 	return (return_check(token));
@@ -93,16 +93,13 @@ int	type_check(t_env *env)
 
 	cmd_set = 0;
 	token = NULL;
-	//printf("check\n");
 	if (env->token)
 		token = env->token;
 	while (token)
 	{
 		if (check_type(env, token, &cmd_set))
 			return (EXIT_FAILURE);
-		//printf("check2\n");
 		token = token->next;
-		//printf("%p\n",token);
 	}
 	return (EXIT_SUCCESS);
 }
