@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 11:22:45 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/14 14:51:33 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/14 14:59:42 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static t_token	*expand_wildcard(t_token *lex, t_token **exp)
 		if (match_wildcard(de->d_name, lex->token))
 		{
 			if (de->d_name[0] != '.' || lex->token[0] == '.')
+				ft_tokenadd_back(exp, ft_tokennew(ft_strdup(de->d_name), t));
 				ft_tokenadd_back(exp, ft_tokennew(ft_strdup(de->d_name), t));
 			t = ARG;
 		}
