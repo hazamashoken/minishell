@@ -64,6 +64,12 @@ static int	is_expandable_variable(t_token *tok)
 	return (1);
 }
 
+static void	swap_token(t_token *current, char *expand)
+{
+	free(current->token);
+	current->token = expand;
+}
+
 int	expand_variable_tokens(t_env *env)
 {
 	t_token	*current;
@@ -81,10 +87,7 @@ int	expand_variable_tokens(t_env *env)
 			{
 				expand = expand_token(env, current->token, pos, &next_pos);
 				if (expand != NULL)
-				{
-					free(current->token);
-					current->token = expand;
-				}
+					swap_token(current, expand);
 				else
 					return (0);
 				pos = ft_strchr(next_pos, '$');
