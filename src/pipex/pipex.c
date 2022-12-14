@@ -99,8 +99,11 @@ int	args_exec(t_process **procs)
 	i = 0;
 	while (procs[i] != NULL)
 	{
-		waitpid(procs[i]->pid, &status, 0);
-		procs[i]->status = WEXITSTATUS(status);
+		if (procs[i]->pid != -1)
+		{
+			waitpid(procs[i]->pid, &status, 0);
+			procs[i]->status = WEXITSTATUS(status);
+		}
 		close_files(procs[i]->io);
 		i++;
 	}
