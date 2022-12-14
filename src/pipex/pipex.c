@@ -40,11 +40,9 @@ static void	print_proc(t_process *proc)
 
 static pid_t	fork_exec(t_process *proc)
 {
-	pid_t	pid;
-
 	print_proc(proc); // debuging
-	pid = fork();
-	if (pid == 0)
+	proc->pid = fork();
+	if (proc->pid == 0)
 	{
 		if (proc->parent[0] != 0)
 			dup2(proc->parent[0], 0);
@@ -59,10 +57,9 @@ static pid_t	fork_exec(t_process *proc)
 		error_print2("error: command not found: ", proc->argv[0]);
 		// exit(127);
 	}
-	else if (pid == -1)
+	else if (proc->pid == -1)
 		error_exit_pipex();
-	proc->pid = pid;
-	return (pid);
+	return (proc->pid);
 }
 
 int	args_exec(t_process **procs)

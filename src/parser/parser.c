@@ -174,6 +174,7 @@ static t_process	**build_pipex(t_env *env)
 	{
 		procs = add_proc(procs, cmd, environ);
 		// is tmp_environ the correct one to use?
+		nta_free((void **)cmd);
 		procs[n]->io = parse_io(env, n);
 		n++;
 		cmd = parse_command(env, n);
