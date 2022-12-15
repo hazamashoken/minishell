@@ -47,6 +47,6 @@ char	**ft_split_addback(char **words, char *string)
 		free(words);
 		return (join);
 	}
-	free(words);
-	return (free(join), NULL);
+	free(join);
+	return (NULL);
 }

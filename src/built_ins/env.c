@@ -19,9 +19,11 @@ int	mini_env(void)
 	i = -1;
 	while (environ[++i])
 	{
-		if (environ[i][0] != '_'
-			&& environ[i][0] != '\0' && environ[i][1] != '=')
+		if (ft_strncmp(environ[i], "_=", 2) != 0)
 			printf("%s\n", environ[i]);
+		//if (environ[i][0] != '_'
+		//	&& environ[i][0] != '\0' && environ[i][1] != '=')
+		//	printf("%s\n", environ[i]);
 	}
 	printf("_=%s\n", getenv("_"));
 	return (EXIT_SUCCESS);

@@ -146,6 +146,7 @@ char	*ft_strjoin_free(char *s1, char *s2, int mode);
 void	ft_free_split(char	**args);
 int		ft_split_size(char	**split);
 char	**ft_split_addback(char **words, char *string);
+void	ft_split_delfront(char **words);
 char	**ft_split_dup(char **words);
 void	ft_split_free(char **words);
 int		ft_strunspn(char *str, char *reject);

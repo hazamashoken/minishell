@@ -40,8 +40,9 @@ int	unset_env(char *args)
 	{
 		if (arg_is_env(args, environ[i]))
 		{
-			free(environ[i]);
-			environ[i] = ft_strdup("\0");
+			ft_split_delfront(&environ[i]);
+			//free(environ[i]);
+			//environ[i] = ft_strdup("\0");
 			return (0);
 		}
 	}

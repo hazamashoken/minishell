@@ -12,11 +12,13 @@
 
 #include "minishell.h"
 
+/*
 char	**add_back(char *args)
 {
 	environ = ft_split_addback(environ, args);
 	return (environ);
 }
+*/
 
 void	reset_env(t_env *env, char *args)
 {
@@ -35,7 +37,8 @@ void	reset_env(t_env *env, char *args)
 			return ;
 		}
 	}
-	env->dup_environ = add_back(args);
+	env->dup_environ = ft_split_addback(env->dup_environ, args);
+	environ = env->dup_environ;
 }
 
 int	mini_export(t_env *env, char **args)
