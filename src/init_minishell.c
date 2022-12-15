@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 11:49:24 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/14 21:31:51 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:41:48 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	minishell_init(t_env *env)
 		minishell_end(env);
 		exit(EXIT_FAILURE);
 	}
+	env->errorchar = '\0';
 	env->tmp_environ = environ;
 	env->dup_environ = ft_split_dup(environ);
 	environ = env->dup_environ;
@@ -66,6 +67,7 @@ int	minishell_init(t_env *env)
 
 void	minishell_end(t_env *env)
 {
+	rl_clear_history();
 	environ = env->tmp_environ;
 	ft_split_free(env->dup_environ);
 	ft_tokenclear(&env->token);

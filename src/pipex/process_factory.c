@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 08:19:51 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/13 19:01:54 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:49:19 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 static void	set_proc_clean(t_process *proc)
 {
 	proc->pid = -1;
+	proc->run = 1;
 	proc->status = 0;
 	proc->fileio[0] = 0;
 	proc->fileio[1] = 1;

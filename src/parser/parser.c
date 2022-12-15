@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:01:08 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/14 17:12:24 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:14:03 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ static t_io	**parse_io(t_env *env, int n)
 /*
  * special case if pipe has io but no commands
  */
-static char	**nocmd_special()
+static char	**nocmd_special(void)
 {
 	char		**echo;
 

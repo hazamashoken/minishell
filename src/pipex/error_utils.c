@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 19:45:03 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/13 22:38:39 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:56:14 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,13 @@ void	error_exit_pipex(void)
 {
 	perror(NULL);
 	exit(EXIT_FAILURE);
+}
+
+void	mini_end_exit(void *arg, t_process *proc)
+{
+	t_env	*env;
+
+	env = (t_env *)arg;
+	minishell_end(env);
+	exit(proc->status);
 }

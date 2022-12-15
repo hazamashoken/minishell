@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 23:04:13 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/14 17:14:58 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:57:02 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ typedef struct s_process
 	char	**argv;
 	char	**envp;
 	char	*path;
+	int		run;
 	t_io	**io;
 }	t_process;
 
 void		error_print(char *message);
 void		error_print2(char *message1, char *message2);
 void		error_exit_pipex(void);
+void		mini_end_exit(void *arg, t_process *proc);
 
 char		*get_pathname(char *cmd, char **envp);
 
@@ -60,7 +62,7 @@ int			**close_pipes(int **pipes);
 int			**make_pipes(int n);
 
 t_io		**add_file(t_io **ios, char *filename, int type, char *limiter);
-int			open_files(t_io **ios);
+int			open_files(t_io **ios, int type);
 void		close_files(t_io **ios);
 void		free_files(t_io **ios);
 

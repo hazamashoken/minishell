@@ -6,12 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:33:57 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/13 19:01:24 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:47:46 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-// #include "libft.h"
 #include "minishell.h"
 
 static int	**init_pipes(t_process **procs)

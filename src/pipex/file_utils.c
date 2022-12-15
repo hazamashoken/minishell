@@ -6,14 +6,13 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:27:47 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/13 19:30:32 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:48:52 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-// #include "libft.h"
 #include "minishell.h"
 
 static int	open_file(t_io *io)
@@ -52,23 +51,29 @@ t_io	**add_file(t_io **ios, char *filename, int type, char *limiter)
 	return ((t_io **)nta_add_back((void **)ios, (void *)io));
 }
 
-int	open_files(t_io **ios)
+int	open_files(t_io **ios, int type)
 {
-	int	size;
+	int	result;
 	int	i;
 
+	result = 1;
 	if (ios == NULL)
-		return (0);
-	size = nta_size((void **)ios);
+		return (result);
 	i = 0;
-	while (i < size)
+	while (ios[i] != NULL)
 	{
-		ios[i]->fd = open_file(ios[i]);
-		if (ios[i]->fd == -1)
-			error_exit_pipex();
+		if (ios[i]->type == type)
+		{
+			ios[i]->fd = open_file(ios[i]);
+			if (ios[i]->fd == -1)
+			{
+				perror(ios[i]->filename);
+				result = 0;
+			}
+		}
 		i++;
 	}
-	return (1);
+	return (result);
 }
 
 void	close_files(t_io **ios)

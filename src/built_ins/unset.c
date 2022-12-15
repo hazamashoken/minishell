@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:25:56 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/14 13:46:34 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:11:37 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	unset_env(char *args)
 		if (arg_is_env(args, environ[i]))
 		{
 			ft_split_delfront(&environ[i]);
-			//free(environ[i]);
-			//environ[i] = ft_strdup("\0");
 			return (0);
 		}
 	}

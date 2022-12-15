@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/14 21:27:34 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:36:40 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_env
 	char				**tmp_environ;
 	char				**dup_environ;
 	t_term				*term;
+	char				errorchar;
 	struct sigaction	sigint;
 	struct sigaction	sigquit;
 
@@ -154,6 +155,7 @@ int		ft_strlcmpchr(char *s1, char *s2, char c);
 int		ft_tokeninject(t_token *token, t_token *new_front);
 int		ft_tokenadd_after(t_token *token, t_token *after);
 int		ft_strncmp(char *s1, char *s2, size_t n);
+int		ft_strcmp(char *s1, char *s2);
 char	*ft_strdup(char *s);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);

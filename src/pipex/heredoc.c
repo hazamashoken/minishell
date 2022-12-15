@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 23:45:53 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/13 19:01:14 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 14:12:50 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ static void	read_until_limiter(int fd_input, int fd_output, char *limiter)
 {
 	char	*line;
 	int		size;
+	char	*limiter2;
 
 	size = ft_strlen(limiter);
+	limiter2 = ft_strjoin(limiter, "\n");
+	write(1, "> ", 2);
 	line = get_next_line(fd_input);
 	while (line != NULL)
 	{
-		if (ft_strncmp(limiter, line, size) == 0)
+		if (ft_strncmp(limiter2, line, size + 2) == 0)
 		{
 			free(line);
 			line = NULL;
@@ -34,9 +37,11 @@ static void	read_until_limiter(int fd_input, int fd_output, char *limiter)
 		{
 			ft_putstr_fd(line, fd_output);
 			free(line);
+			write(1, "> ", 2);
 			line = get_next_line(fd_input);
 		}
 	}
+	free(limiter2);
 }
 
 char	*read_here_doc(char *limiter)

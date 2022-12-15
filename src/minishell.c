@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:22 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/14 21:22:47 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:54:29 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ char	*prompt(void)
 		free(cwd);
 		cwd = tmp;
 	}
-	cwd = ft_strjoin_free_n("\033[30;1;7m\033[47m ", cwd, 2);
+	cwd = ft_strjoin_free_n("\033[30;1;7m\033[1;47m ", cwd, 2);
 	cwd = ft_strjoin_free_n(cwd, " | ", 1);
 	cwd = ft_strjoin_free_n(cwd, name, 1);
-	cwd = ft_strjoin_free_n(cwd, " \033[0m \n\u00AB\0", 1);
+	cwd = ft_strjoin_free_n(cwd, " \033[0m \n\u00AB \0", 1);
 	return (cwd);
 }
 
@@ -98,10 +98,9 @@ int	main(void)
 	t_env	env;
 	char	*input;
 	char	*inprompt;
+	int		exit_sig;
 
 	minishell_init(&env);
-	printf("\e[1;1H\e[2J");
-	printf("pid: %d\n", getpid());
 	while (env.exit)
 	{
 		inprompt = prompt();
@@ -118,7 +117,7 @@ int	main(void)
 		env.ret = run_pipex(&env);
 		ft_tokenclear(&env.token);
 	}
-	printf("\nexit\n");
+	exit_sig = env.ret;
 	minishell_end(&env);
-	return (0);
+	return (printf("exit\n"), exit_sig);
 }
