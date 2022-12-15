@@ -163,43 +163,40 @@ static t_io	**parse_io(t_env *env, int n)
 }
 
 /*
- * special case if command has io but no cammands
+ * special case if pipe has io but no commands
  */
-static t_process	**nocmd_special(t_env *env)
+static char	**nocmd_special()
 {
 	char		**echo;
-	t_process	**procs;
-	t_io		**ios;
 
-	ios = parse_io(env, 0);
-	if (ios == NULL)
-		return (NULL);
 	echo = (char **)nta_add_back(NULL, (void *)ft_strdup("echo"));
 	echo = (char **)nta_add_back((void **)echo, (void *)ft_strdup("-n"));
-	procs = add_proc(NULL, echo, environ);
-	nta_free((void **)echo);
-	procs[0]->io = ios;
-	return (procs);
+	return (echo);
 }
 
 static t_process	**build_pipex(t_env *env)
 {
 	t_process	**procs;
+	t_io		**ios;
 	char		**cmd;
 	int			n;
 
 	n = 0;
 	procs = NULL;
 	cmd = parse_command(env, n);
-	if (cmd == NULL)
-		procs = nocmd_special(env);
+	ios = parse_io(env, n);
+	if (cmd == NULL && ios != NULL)
+		cmd = nocmd_special();
 	while (cmd != NULL)
 	{
 		procs = add_proc(procs, cmd, environ);
 		nta_free((void **)cmd);
-		procs[n]->io = parse_io(env, n);
+		procs[n]->io = ios;
 		n++;
 		cmd = parse_command(env, n);
+		ios = parse_io(env, n);
+		if (cmd == NULL && ios != NULL)
+			cmd = nocmd_special();
 	}
 	return (procs);
 }

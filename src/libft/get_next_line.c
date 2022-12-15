@@ -3,106 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
+/*   By: abossel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 20:32:27 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/13 19:40:12 by tliangso         ###   ########.fr       */
+/*   Created: 2022/09/10 10:20:53 by abossel           #+#    #+#             */
+/*   Updated: 2022/10/08 11:39:03 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// PARAMETERS
-//    Write a function that returns a line read from a
-//    file descriptor
-// DESCRIPTION
-//    fd: The file descriptor to read from
-// RETURN VALUE
-//    Read line: correct behavior
-//    NULL: there is nothing else to read, or an error
-//    occurred
+#include <stdlib.h>
+#include <unistd.h>
+#include "minishell.h"
 
-#include	"minishell.h"
+#define GNL_BUFFER_SIZE 512
 
-char	*create_buffer(char *buffer)
+static char	*join_line(char *line, char *buffer)
 {
-	char	*new_buffer;
+	char	*join;
 
-	if (buffer != NULL)
-		return (buffer);
-	new_buffer = (char *)malloc(BUFFER_SIZE + 1);
-	if (new_buffer != NULL)
-		*new_buffer = '\0';
-	return (new_buffer);
+	if (line == NULL)
+		return (ft_strdup(buffer));
+	join = ft_strjoin(line, buffer);
+	free(line);
+	return (join);
 }
 
-void	move_buffer(char *buffer, char *next)
+static int	read_one(int fd, char *buffer)
 {
-	while (*next != '\0')
-	{
-		*buffer = *next;
-		buffer++;
-		next++;
-	}
-	*buffer = '\0';
-}
+	int	num;
 
-char	*read_line(char *buffer, int fd)
-{
-	char	*line;
-	char	*next;
-	int		n;
-
-	line = NULL;
-	if (ft_strlen(buffer) != 0)
-	{
-		next = ft_strchr(buffer, '\n');
-		if (next != NULL)
-		{
-			*next = '\0';
-			line = ft_strjoin(buffer, "\n");
-			move_buffer(buffer, next + 1);
-			return (line);
-		}
-		line = ft_strjoin(buffer, "");
-		*buffer = '\0';
-	}
-	n = read(fd, buffer, BUFFER_SIZE);
-	if (n >= 0)
-		*(buffer + n) = '\0';
-	if (n > 0 && line == NULL)
-		line = ft_strjoin("", "");
-	return (line);
-}
-
-char	*free_buffer(void *buffer)
-{
-	if (buffer != NULL)
-		free(buffer);
-	return (NULL);
+	num = read(fd, buffer, 1);
+	if (num <= 0)
+		buffer[0] = '\0';
+	else
+		buffer[1] = '\0';
+	return (num);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
-	char		*line;
-	char		*next;
+	char	buffer[GNL_BUFFER_SIZE];
+	char	*line;
+	int		num;
+	int		pos;
 
 	if (fd < 0)
 		return (NULL);
-	buffer = create_buffer(buffer);
-	if (buffer == NULL)
+	pos = 0;
+	num = read_one(fd, buffer);
+	if (num <= 0)
 		return (NULL);
 	line = NULL;
-	next = read_line(buffer, fd);
-	while (next != NULL)
+	while (num > 0 && buffer[pos] != '\n')
 	{
-		if (line == NULL)
-			line = next;
-		else
-			line = ft_strjoin_free(line, next, 2);
-		if (ft_strchr(line, '\n'))
-			return (line);
-		next = read_line(buffer, fd);
+		pos++;
+		if (pos == GNL_BUFFER_SIZE - 1)
+		{
+			line = join_line(line, buffer);
+			pos = 0;
+		}
+		num = read_one(fd, &buffer[pos]);
 	}
-	buffer = free_buffer(buffer);
-	return (line);
+	return (join_line(line, buffer));
 }

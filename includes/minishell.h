@@ -26,7 +26,7 @@
 
 # include "minishell_define.h"
 # include "pipex.h"
-# include "get_next_line.h"
+// # include "get_next_line.h"
 // # include "libft.h"
 
 typedef struct s_token
@@ -161,5 +161,6 @@ int		ft_isdigit(int c);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	*get_next_line(int fd);
 
 #endif
