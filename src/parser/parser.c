@@ -165,7 +165,7 @@ static t_io	**parse_io(t_env *env, int n)
 /*
  * special case if pipe has io but no commands
  */
-static char	**nocmd_special()
+static char	**nocmd_special(void)
 {
 	char		**echo;
 
