@@ -51,30 +51,26 @@ t_io	**add_file(t_io **ios, char *filename, int type, char *limiter)
 	return ((t_io **)nta_add_back((void **)ios, (void *)io));
 }
 
-int	open_files(t_io **ios)
+int	open_files(t_io **ios, int type)
 {
 	int	result;
 	int	i;
 
 	result = 1;
 	if (ios == NULL)
-		return (1);
+		return (result);
 	i = 0;
 	while (ios[i] != NULL)
 	{
-		if (ios[i]->type == IO_HEREDOC)
+		if (ios[i]->type == type)
+		{
 			ios[i]->fd = open_file(ios[i]);
-		i++;
-	}
-	i = 0;
-	while (ios[i] != NULL)
-	{
-		if (ios[i]->type != IO_HEREDOC)
-			ios[i]->fd = open_file(ios[i]);
-		if (ios[i]->type != IO_HEREDOC && ios[i]->fd == -1)
-			perror(ios[i]->filename);
-		if (ios[i]->type != IO_HEREDOC && ios[i]->fd == -1)
-			result = 0;
+			if (ios[i]->fd == -1)
+			{
+				perror(ios[i]->filename);
+				result = 0;
+			}
+		}
 		i++;
 	}
 	return (result);

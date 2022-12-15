@@ -102,7 +102,18 @@ static void	open_all_files(t_process **procs)
 	i = 0;
 	while (procs[i] != NULL)
 	{
-		if (!open_files(procs[i]->io))
+		if (!open_files(procs[i]->io, IO_HEREDOC))
+			procs[i]->run = 0;
+		i++;
+	}
+	i = 0;
+	while (procs[i] != NULL)
+	{
+		if (!open_files(procs[i]->io, IO_READ))
+			procs[i]->run = 0;
+		if (!open_files(procs[i]->io, IO_TRUNC))
+			procs[i]->run = 0;
+		if (!open_files(procs[i]->io, IO_APPEND))
 			procs[i]->run = 0;
 		i++;
 	}
