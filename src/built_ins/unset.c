@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:25:56 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/15 13:11:37 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 22:25:57 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	arg_is_env(char *args, char *env)
 	return (0);
 }
 
-int	unset_env(char *args)
+int	unset_env(t_env *env, char *args)
 {
 	int	i;
 
@@ -40,19 +40,20 @@ int	unset_env(char *args)
 	{
 		if (arg_is_env(args, environ[i]))
 		{
-			ft_split_delfront(&environ[i]);
+			ft_split_delfront(&env->dup_environ[i]);
+			environ = env->dup_environ;
 			return (0);
 		}
 	}
 	return (0);
 }
 
-int	mini_unset(char **args)
+int	mini_unset(t_env *env, char **args)
 {
 	int	i;
 
 	i = 0;
 	while (args[++i])
-		unset_env(args[i]);
+		unset_env(env, args[i]);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 21:40:10 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/15 12:58:49 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 22:26:38 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 
 void	add_back(t_env *env, char *args)
 {
-	char	**dup;
-
-	dup = environ;
-	dup = ft_split_addback(environ, args);
-	environ = dup;
-	free(env->dup_environ);
-	env->dup_environ = dup;
+	env->dup_environ = ft_split_addback(env->dup_environ, args);
+	environ = env->dup_environ;
 }
 
 void	reset_env(t_env *env, char *args)

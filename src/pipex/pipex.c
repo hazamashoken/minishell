@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 21:26:11 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/15 13:54:00 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 22:27:43 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	run_builtin_outside(t_env *env, t_process *proc)
 		else if (ft_strncmp(proc->argv[0], "export", 7) == 0)
 			proc->status = mini_export(env, proc->argv);
 		else if (ft_strncmp(proc->argv[0], "unset", 6) == 0)
-			proc->status = mini_unset(proc->argv);
+			proc->status = mini_unset(env, proc->argv);
 		else if (ft_strncmp(proc->argv[0], "exit", 5) == 0)
 			proc->status = mini_exit(env, proc->argv);
 	}

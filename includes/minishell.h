@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/15 13:36:40 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/15 22:23:05 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int		mini_echo(char **args);
 int		mini_pwd(void);
 int		args_len(char **args);
 int		mini_env(void);
-int		mini_unset(char **args);
+int		mini_unset(t_env *env, char **args);
 int		mini_cd(char **args);
 int		mini_export(t_env *env, char **args);
 int		mini_exit(t_env *env, char **args);

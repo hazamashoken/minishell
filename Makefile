@@ -6,7 +6,7 @@
 #    By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:41:04 by tliangso          #+#    #+#              #
-#    Updated: 2022/12/11 17:18:59 by tliangso         ###   ########.fr        #
+#    Updated: 2022/12/15 21:47:18 by tliangso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,13 +58,13 @@ WHITE	= \033[1;37m
 ### RULES ###
 all: $(BUILD_DIR)/$(NAME)
 
-$(BUILD_DIR)/$(LEXER_NAME): $(LEXER_OBJS)
-	@${CC} ${CFLAGS} $(LEXER_OBJS) $(LIB) -o $@
-	@echo "$(GREEN)$@$(NOC)"
+# $(BUILD_DIR)/$(LEXER_NAME): $(LEXER_OBJS)
+# 	@${CC} ${CFLAGS} $(LEXER_OBJS) $(LIB) -o $@
+# 	@echo "$(GREEN)$@$(NOC)"
 
-$(BUILD_DIR)/$(PROTO_NAME): $(PROTO_OBJS)
-	@${CC} ${CFLAGS} $(PROTO_OBJS) $(LIB) -o $@
-	@echo "$(GREEN)$@$(NOC)"
+# $(BUILD_DIR)/$(PROTO_NAME): $(PROTO_OBJS)
+# 	@${CC} ${CFLAGS} $(PROTO_OBJS) $(LIB) -o $@
+# 	@echo "$(GREEN)$@$(NOC)"
 
 $(BUILD_DIR)/$(NAME): $(OBJS)
 	@${CC} ${CFLAGS} $(OBJS) $(LIB) -o $@
