@@ -13,7 +13,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-// #include "libft.h"
 #include "minishell.h"
 
 static int	open_file(t_io *io)
@@ -54,21 +53,31 @@ t_io	**add_file(t_io **ios, char *filename, int type, char *limiter)
 
 int	open_files(t_io **ios)
 {
-	int	size;
+	int	result;
 	int	i;
 
+	result = 1;
 	if (ios == NULL)
-		return (0);
-	size = nta_size((void **)ios);
+		return (1);
 	i = 0;
-	while (i < size)
+	while (ios[i] != NULL)
 	{
-		ios[i]->fd = open_file(ios[i]);
-		if (ios[i]->fd == -1)
-			error_exit_pipex();
+		if (ios[i]->type == IO_HEREDOC)
+			ios[i]->fd = open_file(ios[i]);
 		i++;
 	}
-	return (1);
+	i = 0;
+	while (ios[i] != NULL)
+	{
+		if (ios[i]->type != IO_HEREDOC)
+			ios[i]->fd = open_file(ios[i]);
+		if (ios[i]->type != IO_HEREDOC && ios[i]->fd == -1)
+			perror(ios[i]->filename);
+		if (ios[i]->type != IO_HEREDOC && ios[i]->fd == -1)
+			result = 0;
+		i++;
+	}
+	return (result);
 }
 
 void	close_files(t_io **ios)

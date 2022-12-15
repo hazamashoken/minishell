@@ -28,7 +28,8 @@ typedef struct s_io
 
 typedef struct s_process
 {
-	int		pid;
+	pid_t	pid;
+	int		run;
 	int		status;
 	int		fileio[2];
 	int		*parent;

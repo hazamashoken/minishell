@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-// #include "libft.h"
 #include "minishell.h"
 
 static void	set_proc_clean(t_process *proc)
 {
 	proc->pid = -1;
+	proc->run = 1;
 	proc->status = 0;
 	proc->fileio[0] = 0;
 	proc->fileio[1] = 1;
