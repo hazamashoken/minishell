@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 21:17:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/15 23:26:04 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/16 12:17:51 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ int	lexer(char *input, t_env *env)
 		return (error_exit2(env, input));
 	if (pre_sanitise(env))
 		return (error_exit(env, input));
-	if (quote_cleaner(env))
-		return (error_exit(env, input));
+	expand_tilde(env);
 	if (!expand_variable_tokens(env))
 		return (error_exit2(env, input));
+	if (quote_cleaner(env))
+		return (error_exit(env, input));
 	if (!expand_wildcard_tokens(env))
 		return (error_exit2(env, input));
 	if (type_check(env))

@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:22 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/15 13:54:29 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/16 12:33:44 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ char	*ft_strjoin_free_n(char *s1, char *s2, int n)
 {
 	char	*ret;
 
+	if (s1 == NULL && s2)
+		return (s2);
+	else if (s1 && s2 == NULL)
+		return (s1);
 	ret = ft_strjoin(s1, s2);
 	if (n == 1 && s1)
 		free(s1);
@@ -40,7 +44,11 @@ char	*prompt(void)
 
 	cwd = getcwd(NULL, 0);
 	home = getenv("HOME");
+	if (home == NULL)
+		home = "";
 	name = getenv("USER");
+	if (name == NULL)
+		name = "";
 	if (ft_strncmp(cwd, home, ft_strlen(home)) == 0)
 	{
 		tmp = ft_strjoin("~", cwd + ft_strlen(home));
