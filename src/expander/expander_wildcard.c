@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 11:22:45 by abossel           #+#    #+#             */
-/*   Updated: 2022/12/15 23:22:09 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/16 11:54:50 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 static int	is_expandable(t_token *lex)
 {
-	if (lex->quote != SINGLE_Q)
+	if (lex->quote == 0)
 	{
 		if (ft_strchr(lex->token, '/') != NULL)
 			return (0);

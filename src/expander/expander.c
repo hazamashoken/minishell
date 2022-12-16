@@ -6,38 +6,11 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:01:02 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/16 10:17:44 by abossel          ###   ########.fr       */
+/*   Updated: 2022/12/16 12:21:32 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-** Expand the $? meta char.
-** Size is strlen - 2 (meta char) + 11 (max int size) + 1 (terminator)
-*/
-char	*expand_error(t_env *env, char *token, char *pos, char **next_pos)
-{
-	char	*expand;
-	char	*errnum;
-	int		size;
-
-	size = ft_strlen(token) - 2 + 11 + 1;
-	expand = malloc(size);
-	if (expand == NULL)
-		return (NULL);
-	*pos = '\0';
-	pos += 2;
-	if (ft_strncmp("${?}", pos, 4) == 0)
-		pos += 2;
-	ft_strlcpy(expand, token, size);
-	errnum = ft_itoa(env->ret);
-	ft_strlcat(expand, errnum, size);
-	free(errnum);
-	*next_pos = ft_strchr(expand, '\0');
-	ft_strlcat(expand, pos, size);
-	return (expand);
-}
 
 static char	*expand_token(t_env *env, char *token, char *pos, char **next_pos)
 {
@@ -72,46 +45,82 @@ static int	is_expandable_variable(t_token *tok)
 		{
 			if (tok->token[i] == '\'' && !double_open)
 				single_open = !single_open;
-			else if (tok->token[i] == '\"' && !single_open)
+			if (tok->token[i] == '\"' && !single_open)
 				double_open = !double_open;
-			else if (!single_open && tok->token[i] == '$')
+			if (tok->token[i] == '$' && (ft_isalpha(tok->token[i + 1])
+					|| tok->token[i + 1] == '?' || tok->token[i + 1] == '{' )
+				&& !single_open)
 				return (1);
 			i++;
 		}
-		return (0);
 	}
-	if (tok->quote == SINGLE_Q)
-		return (0);
-	return (1);
+	return (0);
 }
 
-static void	swap_token(t_token *current, char *expand)
+static int	swap_token(t_env *env, t_token *current, char *pos, char **next_pos)
 {
-	free(current->token);
-	current->token = expand;
+	char	*expand;
+
+	expand = expand_token(env, current->token, pos, next_pos);
+	if (expand != NULL)
+	{
+		free(current->token);
+		current->token = expand;
+		return (1);
+	}
+	return (0);
+}
+
+static char	*find_next_var(char *token, int *s_open, int *d_open)
+{
+	int	single_open;
+	int	double_open;
+	int	i;
+
+	i = 0;
+	single_open = *s_open;
+	double_open = *d_open;
+	while (token[i] != '\0')
+	{
+		if (token[i] == '\'' && !double_open)
+			single_open = !single_open;
+		if (token[i] == '\"' && !single_open)
+			double_open = !double_open;
+		if (token[i] == '$' && (ft_isalpha(token[i + 1]) || token[i + 1] == '?'
+				|| token[i + 1] == '{' ) && !single_open)
+		{
+			*s_open = single_open;
+			*d_open = double_open;
+			return (&token[i]);
+		}
+		i++;
+	}
+	*s_open = single_open;
+	*d_open = double_open;
+	return (NULL);
 }
 
 int	expand_variable_tokens(t_env *env)
 {
 	t_token	*current;
-	char	*expand;
 	char	*pos;
 	char	*next_pos;
+	int		single_open;
+	int		double_open;
 
+	single_open = 0;
+	double_open = 0;
 	current = env->token;
 	while (current != NULL)
 	{
 		if (is_expandable_variable(current))
 		{
-			pos = ft_strchr(current->token, '$');
+			pos = find_next_var(current->token, &single_open, &double_open);
 			while (pos != NULL)
 			{
-				expand = expand_token(env, current->token, pos, &next_pos);
-				if (expand != NULL)
-					swap_token(current, expand);
-				else
+				if (!swap_token(env, current, pos, &next_pos))
 					return (0);
-				pos = ft_strchr(next_pos, '$');
+				pos = find_next_var(next_pos, &single_open, &double_open);
 			}
 		}
 		current = current->next;
