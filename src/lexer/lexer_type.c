@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:39:28 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/15 13:42:11 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/16 13:59:03 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static int	return_check(t_env *env, t_token *token)
 static int	check_type(t_env *env, t_token *token, int *cmd)
 {
 	token->type = 0;
-	if (ft_strncmp(token->token, "", 1) == 0)
-		token->type = EMPTY;
-	else if (ft_strncmp(token->token, "|", 1) == 0)
+	if (token->quote != 0)
+		return (token->type = ARG, EXIT_SUCCESS);
+	if (ft_strncmp(token->token, "|", 1) == 0)
 	{
 		*cmd = 0;
 		env->cmd_counts++;

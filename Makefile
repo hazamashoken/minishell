@@ -6,7 +6,7 @@
 #    By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:41:04 by tliangso          #+#    #+#              #
-#    Updated: 2022/12/15 21:47:18 by tliangso         ###   ########.fr        #
+#    Updated: 2022/12/16 14:04:20 by tliangso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ all: $(BUILD_DIR)/$(NAME)
 $(BUILD_DIR)/$(NAME): $(OBJS)
 	@${CC} ${CFLAGS} $(OBJS) $(LIB) -o $@
 	@echo "$(GREEN)$@$(NOC)"
+	@cp $(BUILD_DIR)/$(NAME) .
 
 $(BUILD_DIR)/%.c.o: %.c
 	@mkdir -p $(dir $@)
