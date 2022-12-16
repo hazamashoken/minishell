@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:49:32 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/15 22:23:05 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/16 10:24:25 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int		expand_parentheses_tokens(t_env *env);
 int		expand_set_priority(t_env *env);
 int		expand_check_grammer(t_env *env);
 int		expand_get_highest_priority(t_env *env, t_token **start, t_token **end);
+void	expand_tilde(t_env *env);
 
 //libft.c
 char	*ft_itoa(int n);

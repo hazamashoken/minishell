@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:01:02 by tliangso          #+#    #+#             */
-/*   Updated: 2022/12/14 14:25:25 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/12/16 10:17:44 by abossel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,27 @@ static char	*expand_token(t_env *env, char *token, char *pos, char **next_pos)
 
 static int	is_expandable_variable(t_token *tok)
 {
+	int		i;
+	int		single_open;
+	int		double_open;
+
+	if (tok->quote == 0)
+	{
+		i = 0;
+		single_open = 0;
+		double_open = 0;
+		while (tok->token[i] != '\0')
+		{
+			if (tok->token[i] == '\'' && !double_open)
+				single_open = !single_open;
+			else if (tok->token[i] == '\"' && !single_open)
+				double_open = !double_open;
+			else if (!single_open && tok->token[i] == '$')
+				return (1);
+			i++;
+		}
+		return (0);
+	}
 	if (tok->quote == SINGLE_Q)
 		return (0);
 	return (1);
